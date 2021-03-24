@@ -1,0 +1,26 @@
+### Starting build.
+# Target: courses.mli.depends, tags: { extension:mli, file:courses.mli, ocaml, ocamldep, quiet }
+ocamlfind ocamldep -modules courses.mli > courses.mli.depends # cached
+# Target: courses.cmi, tags: { byte, compile, extension:mli, file:courses.mli, interf, ocaml, quiet }
+ocamlfind ocamlc -c -o courses.cmi courses.mli # cached
+# Target: courses.ml.depends, tags: { extension:ml, file:courses.ml, ocaml, ocamldep, quiet }
+ocamlfind ocamldep -modules courses.ml > courses.ml.depends # cached
+# Target: courses.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:courses.cmo, file:courses.ml, implem, ocaml, quiet }
+ocamlfind ocamlc -c -o courses.cmo courses.ml # cached
+# Target: author.mli.depends, tags: { extension:mli, file:author.mli, ocaml, ocamldep, quiet }
+ocamlfind ocamldep -modules author.mli > author.mli.depends # cached
+# Target: author.cmi, tags: { byte, compile, extension:mli, file:author.mli, interf, ocaml, quiet }
+ocamlfind ocamlc -c -o author.cmi author.mli # cached
+# Target: author.ml.depends, tags: { extension:ml, file:author.ml, ocaml, ocamldep, quiet }
+ocamlfind ocamldep -modules author.ml > author.ml.depends # cached
+# Target: author.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:author.cmo, file:author.ml, implem, ocaml, quiet }
+ocamlfind ocamlc -c -o author.cmo author.ml # cached
+# Target: main.mli.depends, tags: { extension:mli, file:main.mli, ocaml, ocamldep, quiet }
+ocamlfind ocamldep -modules main.mli > main.mli.depends # cached
+# Target: main.cmi, tags: { byte, compile, extension:mli, file:main.mli, interf, ocaml, quiet }
+ocamlfind ocamlc -c -o main.cmi main.mli # cached
+# Target: main.ml.depends, tags: { extension:ml, file:main.ml, ocaml, ocamldep, quiet }
+ocamlfind ocamldep -modules main.ml > main.ml.depends # cached
+# Target: main.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:main.cmo, file:main.ml, implem, ocaml, quiet }
+ocamlfind ocamlc -c -o main.cmo main.ml # cached
+# Compilation successful.
