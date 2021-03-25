@@ -11,6 +11,7 @@ let menu n =
   while not !quit_loop do 
     print_string "What would you like to do: ";
     print_newline ();
+    print_newline ();
     print_string "Exit CMS (0)";
     print_newline ();
     print_string "Add a Course (1)";
@@ -31,6 +32,42 @@ let menu n =
       print_string "Enter a Course ID: "; let id = read_int () in
       print_newline ();
       Courses.add_course id title cms_courses)
+    else if (option = 2) then 
+      (print_string "Enter a Course ID: "; let id = read_int () in
+      print_newline ();
+      print_string "Enter a field to edit (title or id): "; let field = read_line () in
+      print_newline ();
+      if(field = "title") then 
+        (print_string "Enter a new title: "; let new_title = read_line () in
+        print_newline ();
+        Courses.edit_course id field new_title cms_courses)
+      else if(field = "id") then 
+        (print_string "Enter a new id: "; let new_id = read_int () in
+        print_newline ();
+        Courses.edit_course id field (string_of_int new_id) cms_courses)
+      )
+    else if (option = 3) then 
+      (print_string "Enter a Course ID: "; let id = read_int () in
+      print_newline (); 
+      Courses.delete_course id cms_courses)
+    else if (option = 4) then
+      (print_string "Enter a Course ID: "; let id = read_int () in
+      print_newline (); 
+      Courses.print_course id cms_courses)
+    else if (option = 5) then
+      Courses.print_all_courses cms_courses
+      
+
+      
+
+      
+
+      
+
+   
+      
+
     else if (option = 0) then
       quit_loop := true
+
   done

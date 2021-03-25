@@ -44,23 +44,28 @@ let find_course i c =
 *)
 let pp_student (p : student) = 
   print_string ("Name: " ^ p.name);
-  print_string (" Netid: "); print_int (p.netid);
-  print_string (" Grad Year: "); print_int (p.grad_year)
+  print_string (" | Netid: "); print_int (p.netid);
+  print_string (" | Grad Year: "); print_int (p.grad_year);
+  print_newline ()
 
 (** [pp_professor] will pretty print the high-level
     fields of a professor
 *)
 let pp_professor (p : professor) = 
   print_string ("Name: " ^ p.name);
-  print_string (" Netid: "); print_int (p.netid)
+  print_string (" | Netid: "); print_int (p.netid);
+  print_newline ()
+
 
 (** [pp_professor] will pretty print the high-level
     fields of a course
 *)
 let pp_c c = 
   print_string ("Title: " ^ c.title);
-  print_string (" ID: "); print_int (c.id);
+  print_string (" | ID: "); print_int (c.id);
+  print_newline ();
   List.iter pp_professor c.professors;
+  print_newline ();
   List.iter pp_student c.students;
   print_newline ()
   
@@ -86,15 +91,24 @@ let edit_course i f v c =
   | Some course -> 
     if(f = "title") then course.title <- v
     else course.id <- int_of_string v
-  | None -> print_string "Course not found."
+  | None -> 
+    print_string "Course not found."; 
+    print_newline (); print_newline ()
 
 let print_course i c = 
   let course = find_course i !c in 
   match course with
   | Some course -> pp_c course
-  | None -> print_string "Course not found."
+  | None -> 
+    print_string "Course not found.";
+    print_newline (); print_newline ()
 
-let print_all_courses c = List.iter pp_c !c
+
+let print_all_courses c = 
+  print_newline ();
+  print_string "Courses: ";
+  print_newline (); print_newline ();
+  List.iter pp_c !c
 
 
     
