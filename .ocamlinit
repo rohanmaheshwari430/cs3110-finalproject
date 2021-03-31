@@ -1,4 +1,5 @@
 #directory "_build";;
 #load "courses.cmo";;
+#load "people.cmo";;
 #load "main.cmo";;
 Main.menu 1;;
