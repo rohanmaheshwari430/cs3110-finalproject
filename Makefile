@@ -1,4 +1,4 @@
-MODULES=courses author main
+MODULES=courses people author main
 OBJECTS=$(MODULES:=.cmo)
 MLS=$(MODULES:=.ml)
 MLIS=$(MODULES:=.mli)
