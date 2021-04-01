@@ -34,7 +34,7 @@ val del_person : string -> t ref -> unit
     professor" if no person has id [id] *)
 val edit_person : string -> string -> t ref -> unit
 
-(** [pp_person id c ] will print the information of the person with id
+(** [pp_person id c] will print the information of the person with id
     [id]. Prints "Not a student or a professor" if no person has id [id] *)
 val pp_person : string -> t ref -> unit
 
@@ -45,3 +45,7 @@ val pp_student : student -> unit
 (** [pp_people c ] will print the information of all the people
     currently enrolled in CMS *)
 val pp_people : t ref -> unit
+
+(** [find_student nid s] will find student with netid [nid] in people [s].
+    returns Some student if found, None otherwise *)
+val find_student : string -> t ref -> student option

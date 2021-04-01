@@ -12,7 +12,8 @@ type assignment = {
    string * int list; (* (course title, course id) *) }
 
    type professor = { name: string; netid: int; courses: string * int
-   list (* (course title, course id) *) } *)
+   list (* (course title, course id) *) } 
+*)
 
 type course = {
   mutable students : student list;
@@ -97,3 +98,21 @@ let print_all_courses c =
   List.iter pp_c !c
 
 let empty = []
+
+
+let add_student_to_course c s nid cid = 
+  let student = People.find_student nid s in
+  match student with 
+  | None -> print_string "Student not found."
+  | Some student ->
+    let course = find_course cid !c in
+    match course with 
+    | Some course -> course.students <- student :: course.students
+    | None -> print_string "Course not found."
+
+
+
+
+  
+
+  

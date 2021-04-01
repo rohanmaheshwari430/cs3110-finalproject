@@ -29,7 +29,7 @@ let menu n =
     print_newline ();
     print_string "Add a student (6)";
     print_newline ();
-    print_string "Add a professor(7)";
+    print_string "Add a professor (7)";
     print_newline ();
     print_string "Edit a person (8)";
     print_newline ();
@@ -38,6 +38,8 @@ let menu n =
     print_string "Print a Person (10)";
     print_newline ();
     print_string "Print all people (11)";
+    print_newline ();
+    print_string "Add Student to Course (12)";
     print_newline ();
     print_newline ();
     print_string "Choose an option: "; let option = read_int () in
@@ -101,10 +103,12 @@ let menu n =
       People.pp_person id people_init)
     else if (option = 11) then 
       (People.pp_people people_init)
-
-      
-  
-
+    else if (option = 12) then
+      (print_string "Enter the netid of the student: "; let netid = read_line () in
+      print_newline ();
+      print_string "Enter the id of the course: "; let course_id = read_int () in
+      print_newline();
+      Courses.add_student_to_course cms_courses people_init netid course_id)
     else if (option = 0) then
       quit_loop := true
 

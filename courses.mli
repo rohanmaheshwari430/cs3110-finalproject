@@ -30,3 +30,7 @@ val print_course : int -> t ref -> unit
 
 (** [print_all_courses] will print the information for all courses. *)
 val print_all_courses : t ref -> unit
+
+(** [add_student_to_course c s nid cid] will add student from student list [s] 
+    with net id [nid] to course with id [cid] in courses [c] *)
+val add_student_to_course: t ref -> People.t ref -> string -> int -> unit
