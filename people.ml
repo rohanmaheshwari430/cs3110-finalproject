@@ -143,10 +143,8 @@ let find_student nid c =
   let rec find_student_helper nid s =
     match s with 
     | [] -> None
-    | h::t -> 
+    | h::t ->
       if h.s_netid = nid then Some h
       else find_student_helper nid t 
     in
   find_student_helper nid students
-
-
