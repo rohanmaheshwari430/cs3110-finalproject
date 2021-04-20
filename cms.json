@@ -1,0 +1,34 @@
+{
+
+    "students": [
+        {
+            "name" : "string",
+            "s_netid" : "string",
+            "grad_year" : 2024,
+            "courses" : "(course title * course id) list"
+        }
+    ],
+    "professors" : [
+        {
+            "name" : "string",
+            "p_netid" : "string",
+            "courses" : "(course title * course id) list"
+        }
+    ],
+    "courses": [
+        {
+            "students": [],
+            "professors": [],
+            "assignments": [],
+            "title": "string",
+            "id": 1
+        },
+        {
+            "students": [],
+            "professors": [],
+            "assignments": [],
+            "title": "string",
+            "id": 2
+        }
+    ]
+}

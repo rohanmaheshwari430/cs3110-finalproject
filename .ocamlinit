@@ -1,6 +1,7 @@
-
+#require "yojson";;
 #directory "_build";;
 #load "people.cmo";;
 #load "courses.cmo";;
 #load "main.cmo";;
+
 Main.menu 1;;

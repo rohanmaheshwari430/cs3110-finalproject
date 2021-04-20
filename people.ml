@@ -136,8 +136,6 @@ let pp_people c =
   pp_students !c.students;
   pp_professors !c.professors
 
-
-
 let find_student nid c =
   let students = !c.students in 
   let rec find_student_helper nid s =
@@ -148,3 +146,14 @@ let find_student nid c =
       else find_student_helper nid t 
     in
   find_student_helper nid students
+
+let find_professor nid c =
+  let professors = !c.professors in 
+  let rec find_professor_helper nid p =
+    match p with 
+    | [] -> None
+    | h::t ->
+      if h.p_netid = nid then Some h
+      else find_professor_helper nid t 
+    in
+  find_professor_helper nid professors

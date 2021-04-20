@@ -49,3 +49,7 @@ val pp_people : t ref -> unit
 (** [find_student nid s] will find student with netid [nid] in people [s].
     returns Some student if found, None otherwise *)
 val find_student : string -> t ref -> student option
+
+(** [find_professor nid p] will find professor with netid [nid] in people [p].
+    returns Some professor if found, None otherwise *)
+val find_professor : string -> t ref -> professor option
