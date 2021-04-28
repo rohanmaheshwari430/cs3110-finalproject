@@ -6,7 +6,7 @@
 
 (** The abstract type of values representing courses. *)
 
-type course 
+type course
 
 type t
 
@@ -34,34 +34,44 @@ val print_course : int -> t ref -> unit
 (** [print_all_courses] will print the information for all courses. *)
 val print_all_courses : t ref -> unit
 
-(** [add_student_to_course c s nid cid] will add student from student list [s] 
-    with net id [nid] to course with id [cid] in courses [c] *)
-val add_student_to_course: t ref -> People.t ref -> string -> int -> unit
+(** [add_student_to_course c s nid cid] will add student from student
+    list [s] with net id [nid] to course with id [cid] in courses [c] *)
+val add_student_to_course :
+  t ref -> People.t ref -> string -> int -> unit
 
-(** [remove_student_from_course c s nid cid] remove student from student list [s] 
-    with net id [nid] from course with id [cid] in courses [c]*)
-val remove_student_from_course : t ref -> People.t ref -> string -> int -> unit
+(** [remove_student_from_course c s nid cid] remove student from student
+    list [s] with net id [nid] from course with id [cid] in courses [c]*)
+val remove_student_from_course :
+  t ref -> People.t ref -> string -> int -> unit
 
-(** [add_professor_to_course c p nid cid] will add professor from professor list [p] 
-    with net id [nid] to course with id [cid] in courses [c] *)
-val add_professor_to_course: t ref -> People.t ref -> string -> int -> unit
+(** [add_professor_to_course c p nid cid] will add professor from
+    professor list [p] with net id [nid] to course with id [cid] in
+    courses [c] *)
+val add_professor_to_course :
+  t ref -> People.t ref -> string -> int -> unit
 
-(** [remove_professor_from_course c p nid cid] remove professor from professor list [p] 
-    with net id [nid] from course with id [cid] in courses [c] *)
- val remove_professor_from_course : t ref -> People.t ref -> string -> int -> unit
+(** [remove_professor_from_course c p nid cid] remove professor from
+    professor list [p] with net id [nid] from course with id [cid] in
+    courses [c] *)
+val remove_professor_from_course :
+  t ref -> People.t ref -> string -> int -> unit
 
-(** [add_assignment_to_course c aid t w cid] will add assignment with id [aid], title [t],
-    and weight [w] to course with id [cid] in courses [c] *)
- val add_assignment_to_course: t ref -> int -> string -> int -> int -> unit
+(** [add_assignment_to_course c aid t w cid] will add assignment with id
+    [aid], title [t], and weight [w] to course with id [cid] in courses
+    [c] *)
+val add_assignment_to_course :
+  t ref -> int -> string -> int -> int -> unit
 
-(** [remove_assignment_from_course c aid cid] will remove assignment with id [aid] from 
-    course with id [cid] in courses [c] *)
- val remove_assignment_from_course: t ref -> int -> int -> unit
+(** [remove_assignment_from_course c aid cid] will remove assignment
+    with id [aid] from course with id [cid] in courses [c] *)
+val remove_assignment_from_course : t ref -> int -> int -> unit
 
- 
- (** [edit_assignment_in_course c aid f v cid] will edit field [f] with new value [v] of 
-    assignment with id [aid] in course with id [cid]in courses [c] *)
- val edit_assignment_in_course: t ref -> int -> string -> string -> int -> unit
+(** [edit_assignment_in_course c aid f v cid] will edit field [f] with
+    new value [v] of assignment with id [aid] in course with id [cid]in
+    courses [c] *)
+val edit_assignment_in_course :
+  t ref -> int -> string -> string -> int -> unit
 
- 
+val assign_grade : t ref -> int -> int -> string -> int -> unit
 
+val print_grade : t ref -> string -> int -> int -> unit
