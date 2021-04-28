@@ -72,6 +72,12 @@ val remove_assignment_from_course : t ref -> int -> int -> unit
 val edit_assignment_in_course :
   t ref -> int -> string -> string -> int -> unit
 
+(** [assign_grade c course_id assign_id student_id grade] will assign
+    grade [grade] to student with id [student_id] in course with id
+    [course_id] and assignment with id [assign_id] in courses [c] *)
 val assign_grade : t ref -> int -> int -> string -> int -> unit
 
+(** [print_grade c netid course_id assignment_id] will print the grade
+    of student with id [netid] in course with id [course_id] and
+    assignment with id [assignment_id] in courses [c] *)
 val print_grade : t ref -> string -> int -> int -> unit
