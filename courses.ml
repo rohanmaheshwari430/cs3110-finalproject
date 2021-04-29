@@ -279,7 +279,9 @@ let rec get_grade id (grades : (string * int) list) =
   | h :: t -> (
       match h with
       | k, v ->
-          if k = id then print_string (string_of_int v)
+          if k = id then 
+            (print_string ("Grade: ");
+            print_string (string_of_int v))
           else get_grade id t)
 
 let print_grade c netid course_id assignment_id =
@@ -296,3 +298,51 @@ let print_grade c netid course_id assignment_id =
       | Some assignment ->
           let grades = assignment.student_grades in
           get_grade netid grades)
+
+
+let find_grade nid (sg: (string * float) list) =  
+  snd (List.hd (List.filter (fun x -> nid = fst x) sg))
+
+
+let rec weighted_grade_for_assignment (a : (int * float)) = 
+  match a with 
+  | (w, g) -> Float.of_int w *. (g /. 100.0)
+
+let rec weight_total acc (a : (int * float) list) = 
+  match a with 
+  | (w, g) :: t -> weight_total (acc +. Float.of_int w) t
+  | [] -> acc
+
+let f_grades sg = 
+  List.map (fun (nid,g) -> (nid, Float.of_int g)) sg
+
+let rec compute_grade netid a = 
+  let a_s_grades = List.map (fun x ->  (x.weight, x.student_grades)) a in
+  let f_a_s_grades = List.map (fun (w,sg) -> (w, f_grades sg)) a_s_grades in 
+  let s_grades = List.map (fun (w,x) -> w, find_grade netid x) f_a_s_grades in
+  let w_s_grades = List.map weighted_grade_for_assignment s_grades in
+  let s_sum = (List.fold_left (fun acc x -> acc +. x) 0.0 w_s_grades) in
+  let w_sum = weight_total 0.0 s_grades in
+  print_string "s_sum : ";
+  print_string (string_of_float s_sum);
+  print_newline ();
+  print_string "w_sum : ";
+  print_string (string_of_float w_sum);
+  print_newline ();
+  (s_sum /. w_sum) *. 100.0
+
+  (*
+   match a with 
+    | h :: t -> acc + find_student_grade netid h.student_grades
+    | [] -> acc
+  *)
+
+let final_course_grade c netid cid = 
+  let course = find_course cid !c in
+  match course with 
+  | None -> print_string "Course not found."
+  | Some h -> 
+    print_string "Course grade: ";
+    print_string (string_of_float (compute_grade netid h.assignments))
+
+

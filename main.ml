@@ -100,6 +100,8 @@ let menu n =
     print_newline ();
     print_string "Print a students grade (20)";
     print_newline ();
+    print_string "Compute a student's course grade (21)";
+    print_newline ();
 
     print_string "Choose an option: ";
     let option = read_int () in
@@ -282,5 +284,12 @@ let menu n =
       let netid = read_line () in
       print_newline ();
       Courses.print_grade cms_courses netid course_id assign_id)
+    else if option = 21 then (
+      print_string "Enter the id of the course: ";
+      let course_id = read_int () in
+      print_string "Enter the student id in the course: ";
+      let netid = read_line () in 
+      print_newline ();
+      Courses.final_course_grade cms_courses netid course_id)
     else if option = 0 then quit_loop := true
   done
