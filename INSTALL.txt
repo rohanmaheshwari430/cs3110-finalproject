@@ -11,7 +11,7 @@ Some headups and pointers:
 Failure to enter the proper type when prompted to enter a value may result in the termination of the program. We apologize for this
 inconvenience, but we will implement a fix. 
 
-Here is are some possible routes you can take in our program to test some of our new features in MS2:
+Here is are possible routes you can take in our program to test some of our new features in MS2:
 
 Route 1: 
 Add Course (1)
