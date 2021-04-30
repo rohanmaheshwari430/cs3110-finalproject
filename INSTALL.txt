@@ -24,6 +24,15 @@ Give a student a Grade (19)
 Compute a student’s course grade (21)
 
 Route 2: 
+Add Course (1)
+Add student to Course (15)
+Add student to Course (15)
+Add Assignment (6)
+Give a student a Grade (19)
+Give a student a Grade (19)
+Compute a student’s course grade (21)
+Compute mean and median grade of an assignment (22)
+
 
 
 

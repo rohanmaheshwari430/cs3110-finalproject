@@ -222,7 +222,6 @@ let edit_assignment_in_course c aid f v cid =
   | None -> ()
 
 let edit_student_grade lst student_id grade =
-  print_string "edit grade";
   print_newline ();
   let rec edit_grade lst student_id grade acc =
     match lst with
@@ -238,7 +237,6 @@ let edit_student_grade lst student_id grade =
 
 let edit_assignment (lst : assignment list) assign_id grades :
     assignment list =
-  print_string "edit assign";
   print_newline ();
   let rec edit_assignment_helper
       (lst : assignment list)
@@ -260,7 +258,6 @@ let assign_grade
     assign_id
     student_id
     grade =
-  print_string "Assign grade";
   print_newline ();
   let course = find_course course_id !c in
   match course with
@@ -287,7 +284,8 @@ let rec get_grade id (grades : (string * int) list) =
       | k, v ->
           if k = id then (
             print_string "Grade: ";
-            print_string (string_of_int v))
+            print_string (string_of_int v);
+            print_newline ())
           else get_grade id t)
 
 let print_grade c netid course_id assignment_id =
@@ -329,12 +327,9 @@ let rec compute_grade netid a =
   let w_s_grades = List.map weighted_grade_for_assignment s_grades in
   let s_sum = List.fold_left (fun acc x -> acc +. x) 0.0 w_s_grades in
   let w_sum = weight_total 0.0 s_grades in
-  print_string "s_sum : ";
-  print_string (string_of_float s_sum);
-  print_newline ();
-  print_string "w_sum : ";
-  print_string (string_of_float w_sum);
-  print_newline ();
+  (* print_string "s_sum : "; print_string (string_of_float s_sum);
+     print_newline (); print_string "w_sum : "; print_string
+     (string_of_float w_sum); print_newline (); *)
   s_sum /. w_sum *. 100.0
 
 (* match a with | h :: t -> acc + find_student_grade netid
@@ -409,8 +404,11 @@ let median_helper a =
   let final_list = val_list new_list in
   let size = size_helper new_list in
   let mid = size / 2 in
-  if size mod 2 != 0 then List.nth final_list mid
-  else (List.nth final_list (mid - 1) + List.nth final_list mid) / 2
+  if size mod 2 != 0 then float_of_int (List.nth final_list mid)
+  else
+    float_of_int
+      (List.nth final_list (mid - 1) + List.nth final_list mid)
+    /. 2.0
 
 let rec median c course_id assign_id =
   let course = find_course course_id !c in
@@ -438,4 +436,4 @@ let print_mean_median (c : course list ref) course_id assign_id =
                /. float_of_int (size_helper a.student_grades)));
           print_newline ();
           print_string "Median of assignment: ";
-          print_string (string_of_int (median c h.id a.id)))
+          print_string (string_of_float (median c h.id a.id)))

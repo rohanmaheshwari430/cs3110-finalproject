@@ -35,6 +35,7 @@ let save_data = assert true
 let menu n =
   let quit_loop = ref false in
   while not !quit_loop do
+    print_newline ();
     print_string "What would you like to do: ";
     print_newline ();
     print_newline ();
@@ -103,6 +104,7 @@ let menu n =
     print_string "Compute a student's course grade (21)";
     print_newline ();
     print_string "Compute mean and median grade of an assignment (22)";
+    print_newline ();
     print_newline ();
 
     print_string "Choose an option: ";
