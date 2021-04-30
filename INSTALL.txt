@@ -25,6 +25,8 @@ Compute a student’s course grade (21)
 
 Route 2: 
 Add Course (1)
+Add Student (9)
+Add Student (9)
 Add student to Course (15)
 Add student to Course (15)
 Add Assignment (6)
