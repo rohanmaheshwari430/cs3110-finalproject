@@ -82,10 +82,15 @@ val assign_grade : t ref -> int -> int -> string -> int -> unit
     assignment with id [assignment_id] in courses [c] *)
 val print_grade : t ref -> string -> int -> int -> unit
 
-(** [final_course_grade c nid cid] will compute the final grade of 
+(** [final_course_grade c nid cid] will compute the final grade of
     student with id [nid] in course [cid]. The grade is computed by
-    multiplying the weight points of each assignment by the points the students
-    scored on the assignment (scored points are divided by 100). 
-    The result of this is summed up and divided by the total weight points
-    offered in the class *)
+    multiplying the weight points of each assignment by the points the
+    students scored on the assignment (scored points are divided by
+    100). The result of this is summed up and divided by the total
+    weight points offered in the class *)
 val final_course_grade : t ref -> string -> int -> unit
+
+(** [print_mean_median c course_id assign_id] will print the mean and
+    the median grade of assignment with id [assignment_id] in course
+    with id [course_id] in courses [c] *)
+val print_mean_median : t ref -> int -> int -> unit

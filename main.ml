@@ -102,6 +102,8 @@ let menu n =
     print_newline ();
     print_string "Compute a student's course grade (21)";
     print_newline ();
+    print_string "Compute mean and median grade of an assignment (22)";
+    print_newline ();
 
     print_string "Choose an option: ";
     let option = read_int () in
@@ -288,8 +290,16 @@ let menu n =
       print_string "Enter the id of the course: ";
       let course_id = read_int () in
       print_string "Enter the student id in the course: ";
-      let netid = read_line () in 
+      let netid = read_line () in
       print_newline ();
       Courses.final_course_grade cms_courses netid course_id)
+    else if option = 22 then (
+      print_string "Enter the course id: ";
+      let course_id = read_int () in
+      print_newline ();
+      print_string "Enter the assignment id: ";
+      let assign_id = read_int () in
+      print_newline ();
+      Courses.print_mean_median cms_courses course_id assign_id)
     else if option = 0 then quit_loop := true
   done
