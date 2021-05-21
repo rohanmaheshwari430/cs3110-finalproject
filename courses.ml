@@ -7,14 +7,8 @@ type assignment = {
   mutable student_grades : (string * int) list;
 }
 
-(* type student = { name: string; netid: int; grad_year: int; courses:
-   string * int list; (* (course title, course id) *) }
-
-   type professor = { name: string; netid: int; courses: string * int
-   list (* (course title, course id) *) } *)
-
 type course = {
-  mutable students : student list;
+  mutable students : student list;  
   mutable professors : professor list;
   mutable assignments : assignment list;
   mutable title : string;
@@ -40,21 +34,26 @@ let pp_a (a : assignment) =
   print_newline ()
 
 let pp_c c =
-  print_string ("Title: " ^ c.title);
-  print_string " | ID: ";
+  print_string "|-------------------------------------------------|";
+  print_newline ();
+  print_newline ();
+  print_string (" Title: " ^ c.title);
+  print_string " | ID:  ";
   print_int c.id;
   print_newline ();
-  print_string "Professors: ";
+  print_string " Professors: ";
   print_newline ();
   List.iter People.pp_professor c.professors;
-  print_string "Students: ";
+  print_string " Students: ";
   print_newline ();
   List.iter People.pp_student c.students;
-  print_newline ();
-  print_string "Assignments: ";
+  print_string " Assignments: "; 
   print_newline ();
   List.iter pp_a c.assignments;
+  print_newline ();
+  print_string "|-------------------------------------------------|";
   print_newline ()
+
 
 let add_course i t c =
   let new_course =
