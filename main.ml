@@ -32,9 +32,7 @@ let load_data = assert true
 
 let save_data = assert true
 
-let menu n =
-  let quit_loop = ref false in
-  while not !quit_loop do
+let printed_menu () = 
     print_newline ();
     print_string "What would you like to do: ";
     print_newline ();
@@ -105,203 +103,233 @@ let menu n =
     print_newline ();
     print_string "Compute mean and median grade of an assignment (22)";
     print_newline ();
-    print_newline ();
+    print_newline ()
+  
 
+let option_1 () = 
+  print_string "Enter a Course title: ";
+  let title = read_line () in
+  print_newline ();
+  print_string "Enter a Course ID: ";
+  let id = read_int () in
+  print_newline ();
+  Courses.add_course id title cms_courses
+
+
+let option_2 () =  
+  print_string "Enter a Course ID: ";
+  let id = read_int () in
+  print_newline ();
+  print_string "Enter a field to edit (title or id): ";
+  let field = read_line () in
+  print_newline ();
+  if field = "title" then (
+  print_string "Enter a new title: ";
+  let new_title = read_line () in
+  print_newline ();
+  Courses.edit_course id field new_title cms_courses)
+else if field = "id" then (
+  print_string "Enter a new id: ";
+  let new_id = read_int () in
+  print_newline ();
+  Courses.edit_course id field (string_of_int new_id) cms_courses)
+
+let option_3 () = 
+  print_string "Enter a Course ID: ";
+  let id = read_int () in
+  print_newline ();
+  Courses.delete_course id cms_courses
+
+
+let option_4 () =  
+  print_string "Enter a Course ID: ";
+  let id = read_int () in
+  print_newline ();
+  Courses.print_course id cms_courses
+let option_5 () = 
+  Courses.print_all_courses cms_courses
+
+let option_6 () = 
+  print_string "Enter an Assignment ID: ";
+  let id = read_int () in
+  print_newline ();
+  print_string "Enter an Assignment title: ";
+  let title = read_line () in
+  print_newline ();
+  print_string "Enter the weight of this assignment: ";
+  let weight = read_int () in
+  print_newline ();
+  print_string "Enter the course id for this assignment: ";
+  let course_id = read_int () in
+  Courses.add_assignment_to_course cms_courses id title weight course_id
+
+let option_7 () = 
+  print_string "Enter an Assignment ID: ";
+  let id = read_int () in
+  print_newline ();
+  print_string "Enter the course id for this assignment: ";
+  let course_id = read_int () in
+  Courses.remove_assignment_from_course cms_courses id course_id
+
+let option_8 () = 
+  print_string "Enter an Assignment ID: ";
+  let id = read_int () in print_newline ();
+  print_string "Enter the field to edit (title, id, weight): ";
+  let field = read_line () in print_newline ();
+  print_string "Enter the course id for this assignment: ";
+  let course_id = read_int () in
+  if field = "title" then (
+    print_string "Enter a new title: "; 
+    let title = read_line () in
+    Courses.edit_assignment_in_course cms_courses id field title course_id)
+  else if field = "id" then (
+    print_string "Enter a new id: ";
+    let new_id = read_int () in
+    Courses.edit_assignment_in_course cms_courses id field
+      (string_of_int new_id) course_id)
+  else if field = "weight" then (
+    print_string "Enter a new weight: ";
+    let new_weight = read_int () in
+    Courses.edit_assignment_in_course cms_courses id field
+      (string_of_int new_weight) course_id)
+let option_9 () = 
+  print_string "Enter your netid: ";
+  let id = read_line () in
+  print_newline ();
+  print_string "Enter the name: ";
+  let n = read_line () in
+  print_newline ();
+  print_string "Enter the grad year: ";
+  let gy = read_int () in
+  print_newline ();
+  People.add_student id n gy people_init
+
+let option_10 () = 
+  print_string "Enter your netid: ";
+  let id = read_line () in
+  print_newline ();
+  print_string "Enter the name: ";
+  let n = read_line () in
+  print_newline ();
+  People.add_prof id n people_init
+
+let option_11 () = 
+  print_string "Enter your netid: ";
+  let id = read_line () in
+  print_newline ();
+  print_string "Enter the new name: ";
+  let value = read_line () in
+  print_newline ();
+  People.edit_person id value people_init
+
+let option_12 () = 
+  print_string "Enter the netid of the person to be deleted: ";
+  let id = read_line () in
+  print_newline ();
+  People.del_person id people_init
+
+let option_13 () = 
+  print_string "Enter the netid of the person: ";
+  let id = read_line () in
+  print_newline ();
+  People.pp_person id people_init
+
+let option_14 () = 
+  People.pp_people people_init
+
+let option_15 () = 
+  print_string "Enter the netid of the student: ";
+  let netid = read_line () in
+  print_newline ();
+  print_string "Enter the id of the course: "; 
+  let course_id = read_int () in
+  print_newline ();
+  Courses.add_student_to_course cms_courses people_init netid course_id
+
+let option_16 () = 
+  print_string "Enter the netid of the professor: ";
+  let netid = read_line () in
+  print_newline ();
+  print_string "Enter the id of the course: ";
+  let course_id = read_int () in
+  print_newline ();
+  Courses.add_professor_to_course cms_courses people_init netid course_id
+
+let option_17 () = 
+  print_string "Enter the netid of the student: ";
+  let netid = read_line () in
+  print_newline ();
+  print_string "Enter the id of the course: ";
+  let course_id = read_int () in
+  print_newline ();
+  Courses.remove_student_from_course cms_courses people_init netid course_id
+
+let option_18 () = 
+  print_string "Enter the netid of the professor: ";
+  let netid = read_line () in
+  print_newline ();
+  print_string "Enter the id of the course: ";
+  let course_id = read_int () in
+  print_newline ();
+  Courses.remove_professor_from_course cms_courses people_init netid course_id
+
+let option_19 () = 
+  print_string "Enter the id of the course: ";
+  let course_id = read_int () in
+  print_string "Enter the assignment id in the course: ";
+  let assign_id = read_int () in
+  print_newline ();
+  print_string "Enter the student id in the course: ";
+  let netid = read_line () in
+  print_newline ();
+  print_string "Enter the grade to be assigned: ";
+  let grade = read_int () in
+  print_newline ();
+  Courses.assign_grade cms_courses course_id assign_id netid grade
+
+let option_20 () = 
+  print_string "Enter the id of the course: ";
+  let course_id = read_int () in
+  print_string "Enter the assignment id in the course: ";
+  let assign_id = read_int () in
+  print_newline ();
+  print_string "Enter the student id in the course: ";
+  let netid = read_line () in
+  print_newline ();
+  Courses.print_grade cms_courses netid course_id assign_id
+
+let option_21 () = 
+  print_string "Enter the id of the course: ";
+  let course_id = read_int () in
+  print_string "Enter the student id in the course: ";
+  let netid = read_line () in
+  print_newline ();
+  Courses.final_course_grade cms_courses netid course_id
+
+let option_22 () = 
+  print_string "Enter the course id: ";
+  let course_id = read_int () in
+  print_newline ();
+  print_string "Enter the assignment id: ";
+  let assign_id = read_int () in
+  print_newline ();
+  Courses.print_mean_median cms_courses course_id assign_id
+let menu n =
+  let quit_loop = ref false in
+  while not !quit_loop do
+    printed_menu ();
     print_string "Choose an option: ";
     let option = read_int () in
-    if option = 1 then (
-      print_string "Enter a Course title: ";
-      let title = read_line () in
-      print_newline ();
-      print_string "Enter a Course ID: ";
-      let id = read_int () in
-      print_newline ();
-      Courses.add_course id title cms_courses)
-    else if option = 2 then (
-      print_string "Enter a Course ID: ";
-      let id = read_int () in
-      print_newline ();
-      print_string "Enter a field to edit (title or id): ";
-      let field = read_line () in
-      print_newline ();
-      if field = "title" then (
-        print_string "Enter a new title: ";
-        let new_title = read_line () in
-        print_newline ();
-        Courses.edit_course id field new_title cms_courses)
-      else if field = "id" then (
-        print_string "Enter a new id: ";
-        let new_id = read_int () in
-        print_newline ();
-        Courses.edit_course id field (string_of_int new_id) cms_courses))
-    else if option = 3 then (
-      print_string "Enter a Course ID: ";
-      let id = read_int () in
-      print_newline ();
-      Courses.delete_course id cms_courses)
-    else if option = 4 then (
-      print_string "Enter a Course ID: ";
-      let id = read_int () in
-      print_newline ();
-      Courses.print_course id cms_courses)
-    else if option = 5 then Courses.print_all_courses cms_courses
-    else if option = 6 then (
-      print_string "Enter an Assignment ID: ";
-      let id = read_int () in
-      print_newline ();
-      print_string "Enter an Assignment title: ";
-      let title = read_line () in
-      print_newline ();
-      print_string "Enter the weight of this assignment: ";
-      let weight = read_int () in
-      print_newline ();
-      print_string "Enter the course id for this assignment: ";
-      let course_id = read_int () in
-      Courses.add_assignment_to_course cms_courses id title weight
-        course_id)
-    else if option = 7 then (
-      print_string "Enter an Assignment ID: ";
-      let id = read_int () in
-      print_newline ();
-      print_string "Enter the course id for this assignment: ";
-      let course_id = read_int () in
-      Courses.remove_assignment_from_course cms_courses id course_id)
-    else if option = 8 then (
-      print_string "Enter an Assignment ID: ";
-      let id = read_int () in
-      print_newline ();
-      print_string "Enter the field to edit (title, id, weight): ";
-      let field = read_line () in
-      print_newline ();
-      print_string "Enter the course id for this assignment: ";
-      let course_id = read_int () in
-      if field = "title" then (
-        print_string "Enter a new title: ";
-        let title = read_line () in
-        Courses.edit_assignment_in_course cms_courses id field title
-          course_id)
-      else if field = "id" then (
-        print_string "Enter a new id: ";
-        let new_id = read_int () in
-        Courses.edit_assignment_in_course cms_courses id field
-          (string_of_int new_id) course_id)
-      else if field = "weight" then (
-        print_string "Enter a new weight: ";
-        let new_weight = read_int () in
-        Courses.edit_assignment_in_course cms_courses id field
-          (string_of_int new_weight)
-          course_id))
-    else if option = 9 then (
-      print_string "Enter your netid: ";
-      let id = read_line () in
-      print_newline ();
-      print_string "Enter the name: ";
-      let n = read_line () in
-      print_newline ();
-      print_string "Enter the grad year: ";
-      let gy = read_int () in
-      print_newline ();
-      People.add_student id n gy people_init)
-    else if option = 10 then (
-      print_string "Enter your netid: ";
-      let id = read_line () in
-      print_newline ();
-      print_string "Enter the name: ";
-      let n = read_line () in
-      print_newline ();
-      People.add_prof id n people_init)
-    else if option = 11 then (
-      print_string "Enter your netid: ";
-      let id = read_line () in
-      print_newline ();
-      print_string "Enter the new name: ";
-      let value = read_line () in
-      print_newline ();
-      People.edit_person id value people_init)
-    else if option = 12 then (
-      print_string "Enter the netid of the person to be deleted: ";
-      let id = read_line () in
-      print_newline ();
-      People.del_person id people_init)
-    else if option = 13 then (
-      print_string "Enter the netid of the person: ";
-      let id = read_line () in
-      print_newline ();
-      People.pp_person id people_init)
-    else if option = 14 then People.pp_people people_init
-    else if option = 15 then (
-      print_string "Enter the netid of the student: ";
-      let netid = read_line () in
-      print_newline ();
-      print_string "Enter the id of the course: ";
-      let course_id = read_int () in
-      print_newline ();
-      Courses.add_student_to_course cms_courses people_init netid
-        course_id)
-    else if option = 16 then (
-      print_string "Enter the netid of the professor: ";
-      let netid = read_line () in
-      print_newline ();
-      print_string "Enter the id of the course: ";
-      let course_id = read_int () in
-      print_newline ();
-      Courses.add_professor_to_course cms_courses people_init netid
-        course_id)
-    else if option = 17 then (
-      print_string "Enter the netid of the student: ";
-      let netid = read_line () in
-      print_newline ();
-      print_string "Enter the id of the course: ";
-      let course_id = read_int () in
-      print_newline ();
-      Courses.remove_student_from_course cms_courses people_init netid
-        course_id)
-    else if option = 18 then (
-      print_string "Enter the netid of the professor: ";
-      let netid = read_line () in
-      print_newline ();
-      print_string "Enter the id of the course: ";
-      let course_id = read_int () in
-      print_newline ();
-      Courses.remove_professor_from_course cms_courses people_init netid
-        course_id)
-    else if option = 19 then (
-      print_string "Enter the id of the course: ";
-      let course_id = read_int () in
-      print_string "Enter the assignment id in the course: ";
-      let assign_id = read_int () in
-      print_newline ();
-      print_string "Enter the student id in the course: ";
-      let netid = read_line () in
-      print_newline ();
-      print_string "Enter the grade to be assigned: ";
-      let grade = read_int () in
-      print_newline ();
-      Courses.assign_grade cms_courses course_id assign_id netid grade)
-    else if option = 20 then (
-      print_string "Enter the id of the course: ";
-      let course_id = read_int () in
-      print_string "Enter the assignment id in the course: ";
-      let assign_id = read_int () in
-      print_newline ();
-      print_string "Enter the student id in the course: ";
-      let netid = read_line () in
-      print_newline ();
-      Courses.print_grade cms_courses netid course_id assign_id)
-    else if option = 21 then (
-      print_string "Enter the id of the course: ";
-      let course_id = read_int () in
-      print_string "Enter the student id in the course: ";
-      let netid = read_line () in
-      print_newline ();
-      Courses.final_course_grade cms_courses netid course_id)
-    else if option = 22 then (
-      print_string "Enter the course id: ";
-      let course_id = read_int () in
-      print_newline ();
-      print_string "Enter the assignment id: ";
-      let assign_id = read_int () in
-      print_newline ();
-      Courses.print_mean_median cms_courses course_id assign_id)
+    if option = 1 then option_1 () else if option = 2 then option_2 ()
+    else if option = 3 then option_3 () else if option = 4 then option_4 ()
+    else if option = 5 then option_5 () else if option = 6 then option_6 ()
+    else if option = 7 then option_7 () else if option = 8 then option_8 ()
+    else if option = 9 then option_9 () else if option = 10 then option_10 ()
+    else if option = 11 then option_11 () else if option = 12 then option_12 ()
+    else if option = 13 then option_13 () else if option = 14 then option_14 ()
+    else if option = 15 then option_15 () else if option = 16 then option_16 ()
+    else if option = 17 then option_17 () else if option = 18 then option_18 ()
+    else if option = 19 then option_19 () else if option = 20 then option_20 ()
+    else if option = 21 then option_21 () else if option = 22 then option_22 ()
     else if option = 0 then quit_loop := true
   done
