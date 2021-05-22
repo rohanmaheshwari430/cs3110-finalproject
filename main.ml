@@ -115,7 +115,6 @@ let option_1 () =
   print_newline ();
   Courses.add_course id title cms_courses
 
-
 let option_2 () =  
   print_string "Enter a Course ID: ";
   let id = read_int () in
@@ -314,6 +313,42 @@ let option_22 () =
   let assign_id = read_int () in
   print_newline ();
   Courses.print_mean_median cms_courses course_id assign_id
+
+let welcome_message = 
+  print_string "Welcome to CMS, command line edition!";
+  print_newline ();
+  print_newline ();
+  print_string "In this program, depending on your user ";
+  print_newline ();
+  print_string "type you will have options to manage ";
+  print_newline ();
+  print_string "courses, grades, faculty, students and more. ";
+  print_newline ();
+  print_newline ();
+  print_string "Developed and Maintained by: ";
+  print_newline ();
+  print_newline ();
+  print_string  "Samiksha Hiranandani";
+  print_newline ();
+  print_string "Sukriti Sudhakar";
+  print_newline ();
+  print_string "Rohan Maheshwari";
+  print_newline ()
+
+let user_type = 
+  print_string "Who are you?";
+  print_newline ();
+  print_string "Admin | Professor | Student";
+  print_newline ();
+  print_newline ();
+  print_string "Enter your role (case sensitive): ";
+  let response = read_line () in
+  if response = "Admin" then assert false
+  else if response = "Professor" then assert false
+  else if response = "Student" then assert false
+  else print_string "Invalid role. Goodbye."
+
+
 let menu n =
   let quit_loop = ref false in
   while not !quit_loop do
