@@ -4,4 +4,4 @@
 #load "courses.cmo";;
 #load "main.cmo";;
 
-Main.menu 1;;
+Main.user_type ();;

@@ -326,13 +326,7 @@ let rec compute_grade netid a =
   let w_s_grades = List.map weighted_grade_for_assignment s_grades in
   let s_sum = List.fold_left (fun acc x -> acc +. x) 0.0 w_s_grades in
   let w_sum = weight_total 0.0 s_grades in
-  (* print_string "s_sum : "; print_string (string_of_float s_sum);
-     print_newline (); print_string "w_sum : "; print_string
-     (string_of_float w_sum); print_newline (); *)
   s_sum /. w_sum *. 100.0
-
-(* match a with | h :: t -> acc + find_student_grade netid
-   h.student_grades | [] -> acc *)
 
 let final_course_grade c netid cid =
   let course = find_course cid !c in
@@ -436,3 +430,4 @@ let print_mean_median (c : course list ref) course_id assign_id =
           print_newline ();
           print_string "Median of assignment: ";
           print_string (string_of_float (median c h.id a.id)))
+
