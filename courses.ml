@@ -26,12 +26,18 @@ let find_course i c =
   with Failure hd -> None
 
 let pp_a (a : assignment) =
+  print_string "|-------------------------------------------------|";
+  print_newline ();
+  print_newline ();
   print_string ("Title: " ^ a.title);
   print_string " | ID: ";
   print_int a.id;
   print_string " | Weight: ";
   print_int a.weight;
-  print_newline ()
+  print_newline ();
+  print_newline ();
+  print_string "|-------------------------------------------------|"
+
 
 let pp_c c =
   print_string "|-------------------------------------------------|";
@@ -50,6 +56,7 @@ let pp_c c =
   print_string " Assignments: "; 
   print_newline ();
   List.iter pp_a c.assignments;
+  print_newline ();
   print_newline ();
   print_string "|-------------------------------------------------|";
   print_newline ()
