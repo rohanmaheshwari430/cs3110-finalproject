@@ -1,4 +1,5 @@
 #require "yojson";;
+#require "ounit2";;
 #directory "_build";;
 #load "people.cmo";;
 #load "courses.cmo";;
