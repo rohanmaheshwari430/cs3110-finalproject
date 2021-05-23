@@ -31,21 +31,31 @@ let init = { students = []; professors = [] }
 
 (** [pp_student] will pretty print the high-level fields of a student *)
 let pp_student (p : student) =
+  print_string "|-------------------------------------------------|";
+  print_newline ();
+  print_newline ();
   print_string (" Name: " ^ p.name);
   print_string " | Netid: ";
   print_string p.s_netid;
   print_string " | Grad Year: ";
   print_int p.grad_year;
-  print_newline ()
+  print_newline ();
+  print_string "|-------------------------------------------------|"
+
 
 (** [pp_professor] will pretty print the high-level fields of a
     professor *)
 
 let pp_professor (p : professor) =
+  print_string "|-------------------------------------------------|";
+  print_newline ();
+  print_newline ();
   print_string (" Name: " ^ p.name);
   print_string " | Netid: ";
   print_string p.p_netid;
-  print_newline ()
+  print_newline ();
+  print_newline ();
+  print_string "|-------------------------------------------------|"
 
 let add_student id n gy c =
   let new_student =

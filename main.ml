@@ -32,79 +32,6 @@ let load_data = assert true
 
 let save_data = assert true
 
-let printed_menu () = 
-    print_newline ();
-    print_string "What would you like to do: ";
-    print_newline ();
-    print_newline ();
-    print_string "Exit CMS (0)";
-    print_newline ();
-    print_newline ();
-    print_string "COURSES OPERATIONS";
-    print_newline ();
-    print_newline ();
-    print_string "Add a Course (1)";
-    print_newline ();
-    print_string "Edit a Course (2)";
-    print_newline ();
-    print_string "Delete a Course (3)";
-    print_newline ();
-    print_string "Print a Course (4)";
-    print_newline ();
-    print_string "Print all Courses (5)";
-    print_newline ();
-    print_newline ();
-    print_string "COURSE ASSIGNMENTS OPERATIONS";
-    print_newline ();
-    print_newline ();
-    print_string "Add Assignment to Course (6)";
-    print_newline ();
-    print_string "Remove Assignment from Course (7)";
-    print_newline ();
-    print_string "Edit Assignment in Course (8)";
-    print_newline ();
-    print_newline ();
-    print_string "PEOPLE OPERATIONS";
-    print_newline ();
-    print_newline ();
-    print_string "Add a student (9)";
-    print_newline ();
-    print_string "Add a professor (10)";
-    print_newline ();
-    print_string "Edit a person (11)";
-    print_newline ();
-    print_string "Delete a person (12)";
-    print_newline ();
-    print_string "Print a Person (13)";
-    print_newline ();
-    print_string "Print all people (14)";
-    print_newline ();
-    print_newline ();
-    print_string "COURSE STAFF AND ENROLL/DROP OPERATIONS";
-    print_newline ();
-    print_newline ();
-    print_string "Add Student to Course (15)";
-    print_newline ();
-    print_string "Add Professor to Course (16)";
-    print_newline ();
-    print_string "Remove Student from Course (17)";
-    print_newline ();
-    print_string "Remove Professor from Course (18)";
-    print_newline ();
-    print_newline ();
-    print_string "GRADING OPERATIONS";
-    print_newline ();
-    print_newline ();
-    print_string "Give a student a grade (19)";
-    print_newline ();
-    print_string "Print a students grade (20)";
-    print_newline ();
-    print_string "Compute a student's course grade (21)";
-    print_newline ();
-    print_string "Compute mean and median grade of an assignment (22)";
-    print_newline ();
-    print_newline ()
-  
 
 let option_1 () = 
   print_string "Enter a Course title: ";
@@ -114,7 +41,6 @@ let option_1 () =
   let id = read_int () in
   print_newline ();
   Courses.add_course id title cms_courses
-
 
 let option_2 () =  
   print_string "Enter a Course ID: ";
@@ -314,22 +240,374 @@ let option_22 () =
   let assign_id = read_int () in
   print_newline ();
   Courses.print_mean_median cms_courses course_id assign_id
-let menu n =
-  let quit_loop = ref false in
-  while not !quit_loop do
-    printed_menu ();
+
+let admin_course_menu () = 
+  print_string "COURSES OPERATIONS";
+  print_newline ();
+  print_newline ();
+  print_string "Add a Course (1)";
+  print_newline ();
+  print_string "Edit a Course (2)";
+  print_newline ();
+  print_string "Delete a Course (3)";
+  print_newline ();
+  print_string "Print a Course (4)";
+  print_newline ();
+  print_string "Print all Courses (5)";
+  print_newline ();
+  print_newline ()
+
+let admin_assignment_menu () = 
+  print_string "COURSE ASSIGNMENTS OPERATIONS";
+  print_newline ();
+  print_newline ();
+  print_string "Add Assignment to Course (6)";
+  print_newline ();
+  print_string "Remove Assignment from Course (7)";
+  print_newline ();
+  print_string "Edit Assignment in Course (8)";
+  print_newline ();
+  print_newline ()
+
+let admin_people_menu () = 
+  print_string "PEOPLE OPERATIONS";
+  print_newline ();
+  print_newline ();
+  print_string "Add a student (9)";
+  print_newline ();
+  print_string "Add a professor (10)";
+  print_newline ();
+  print_string "Edit a person (11)";
+  print_newline ();
+  print_string "Delete a person (12)";
+  print_newline ();
+  print_string "Print a Person (13)";
+  print_newline ();
+  print_string "Print all people (14)";
+  print_newline ();
+  print_newline ()
+
+let admin_e_d_menu () = 
+  print_string "COURSE STAFF AND ENROLL/DROP OPERATIONS";
+  print_newline ();
+  print_newline ();
+  print_string "Add Student to Course (15)";
+  print_newline ();
+  print_string "Add Professor to Course (16)";
+  print_newline ();
+  print_string "Remove Student from Course (17)";
+  print_newline ();
+  print_string "Remove Professor from Course (18)";
+  print_newline ();
+  print_newline ()
+
+let admin_grade_menu () = 
+  print_string "GRADING OPERATIONS";
+  print_newline ();
+  print_newline ();
+  print_string "Give a student a grade (19)";
+  print_newline ();
+  print_string "Print a students grade (20)";
+  print_newline ();
+  print_string "Compute a student's course grade (21)";
+  print_newline ();
+  print_string "Compute mean and median grade of an assignment (22)";
+  print_newline ();
+  print_newline ()
+
+let prof_course_menu () = 
+  print_string "COURSES OPERATIONS";
+  print_newline ();
+  print_newline ();
+  print_string "Print a Course (4)";
+  print_newline ();
+  print_string "Print all Courses (5)";
+  print_newline ();
+  print_newline ()
+
+let prof_assignment_menu () = 
+  print_string "COURSE ASSIGNMENTS OPERATIONS";
+  print_newline ();
+  print_newline ();
+  print_string "Add Assignment to Course (6)";
+  print_newline ();
+  print_string "Remove Assignment from Course (7)";
+  print_newline ();
+  print_string "Edit Assignment in Course (8)";
+  print_newline ();
+  print_newline ()
+
+let prof_people_menu () = 
+  print_string "PEOPLE OPERATIONS";
+  print_newline ();
+  print_newline ();
+  print_string "Add a student (9)";
+  print_newline ();
+  print_string "Print a Person (13)";
+  print_newline ();
+  print_string "Print all people (14)";
+  print_newline ();
+  print_newline ()
+
+let prof_e_d_menu () = 
+  print_string "COURSE STAFF AND ENROLL/DROP OPERATIONS";
+  print_newline ();
+  print_newline ();
+  print_string "Add Student to Course (15)";
+  print_newline ();
+  print_string "Remove Student from Course (17)";
+  print_newline ();
+  print_newline ()
+
+let prof_grade_menu () = 
+  print_string "GRADING OPERATIONS";
+  print_newline ();
+  print_newline ();
+  print_string "Give a student a grade (19)";
+  print_newline ();
+  print_string "Print a students grade (20)";
+  print_newline ();
+  print_string "Compute a student's course grade (21)";
+  print_newline ();
+  print_string "Compute mean and median grade of an assignment (22)";
+  print_newline ();
+  print_newline ()
+
+let student_course_menu () = 
+  print_string "COURSES OPERATIONS";
+  print_newline ();
+  print_newline ();
+  print_string "Print a Course (4)";
+  print_newline ();
+  print_string "Print all Courses (5)";
+  print_newline ();
+  print_newline ()
+
+let student_people_menu () = 
+  print_string "PEOPLE OPERATIONS";
+  print_newline ();
+  print_newline ();
+  print_string "Print a Person (13)";
+  print_newline ();
+  print_newline ()
+
+let student_grade_menu () = 
+  print_string "GRADING OPERATIONS";
+  print_newline ();
+  print_newline ();
+  print_string "Print a students grade (20)";
+  print_newline ();
+  print_string "Compute a student's course grade (21)";
+  print_newline ();
+  print_newline ()
+
+
+let welcome_message = 
+  print_string "Welcome to CMS, command line edition!";
+  print_newline ();
+  print_newline ();
+  print_string "In this program, depending on your user ";
+  print_newline ();
+  print_string "type you will have options to manage ";
+  print_newline ();
+  print_string "courses, grades, faculty, students and more. ";
+  print_newline ();
+  print_newline ();
+  print_string "Developed and Maintained by: ";
+  print_newline ();
+  print_newline ();
+  print_string  "Samiksha Hiranandani";
+  print_newline ();
+  print_string "Sukriti Sudhakar";
+  print_newline ();
+  print_string "Rohan Maheshwari";
+  print_newline ()
+
+
+
+let admin_course_options () =
+    admin_course_menu ();
     print_string "Choose an option: ";
     let option = read_int () in
-    if option = 1 then option_1 () else if option = 2 then option_2 ()
-    else if option = 3 then option_3 () else if option = 4 then option_4 ()
-    else if option = 5 then option_5 () else if option = 6 then option_6 ()
-    else if option = 7 then option_7 () else if option = 8 then option_8 ()
-    else if option = 9 then option_9 () else if option = 10 then option_10 ()
-    else if option = 11 then option_11 () else if option = 12 then option_12 ()
-    else if option = 13 then option_13 () else if option = 14 then option_14 ()
-    else if option = 15 then option_15 () else if option = 16 then option_16 ()
-    else if option = 17 then option_17 () else if option = 18 then option_18 ()
-    else if option = 19 then option_19 () else if option = 20 then option_20 ()
-    else if option = 21 then option_21 () else if option = 22 then option_22 ()
-    else if option = 0 then quit_loop := true
-  done
+    if option = 1 then option_1 () 
+    else if option = 2 then option_2 ()
+    else if option = 3 then option_3 () 
+    else if option = 4 then option_4 ()
+    else if option = 5 then option_5 () 
+
+let admin_assignment_options () = 
+  admin_assignment_menu (); 
+  print_string "Choose an option: ";
+  let option = read_int () in
+  if option = 6 then option_6 () 
+  else if option = 7 then option_7 ()
+  else if option = 8 then option_8 () 
+
+let admin_people_options () = 
+  admin_people_menu ();
+  print_string "Choose an option: ";
+  let option = read_int () in 
+  if option = 9 then option_9 () 
+  else if option = 10 then option_10 () 
+  else if option = 11 then option_11 ()
+  else if option = 12 then option_12 ()
+  else if option = 13 then option_13 () 
+  else if option = 14 then option_14 ()
+
+let admin_e_d_options () = 
+  admin_e_d_menu ();
+  print_string "Choose an option: ";
+  let option = read_int () in 
+  if option = 15 then option_15 () 
+  else if option = 16 then option_16 () 
+  else if option = 17 then option_17 () 
+  else if option = 18 then option_18 () 
+
+let admin_grade_options () = 
+  admin_grade_menu ();
+  print_string "Choose an option: ";
+  let option = read_int () in 
+  if option = 19 then option_19 () 
+  else if option = 20 then option_20 ()
+  else if option = 21 then option_21 () 
+  else if option = 22 then option_22 ()
+  
+let prof_course_options () =
+  prof_course_menu ();
+  print_string "Choose an option: ";
+  let option = read_int () in
+  if option = 4 then option_4 ()
+  else if option = 5 then option_5 () 
+
+let prof_assignment_options () = 
+  prof_assignment_menu (); 
+  print_string "Choose an option: ";
+  let option = read_int () in
+  if option = 6 then option_6 () 
+  else if option = 7 then option_7 ()
+  else if option = 8 then option_8 () 
+
+let prof_people_options () = 
+  prof_people_menu ();
+  print_string "Choose an option: ";
+  let option = read_int () in 
+  if option = 9 then option_9 () 
+  else if option = 13 then option_13 () 
+  else if option = 14 then option_14 ()
+
+let prof_e_d_options () = 
+  prof_e_d_menu ();
+  print_string "Choose an option: ";
+  let option = read_int () in 
+  if option = 15 then option_15 () 
+  else if option = 17 then option_17 () 
+
+let prof_grade_options () = 
+  prof_grade_menu ();
+  print_string "Choose an option: ";
+  let option = read_int () in 
+  if option = 19 then option_19 () 
+  else if option = 20 then option_20 ()
+  else if option = 21 then option_21 () 
+  else if option = 22 then option_22 ()
+
+let student_course_options () =
+  student_course_menu ();
+  print_string "Choose an option: ";
+  let option = read_int () in
+  if option = 4 then option_4 ()
+  else if option = 5 then option_5 () 
+let student_people_options () = 
+  student_people_menu ();
+  print_string "Choose an option: ";
+  let option = read_int () in 
+  if option = 13 then option_13 ()
+
+let student_grade_options () = 
+  student_grade_menu ();
+  print_string "Choose an option: ";
+  let option = read_int () in 
+  if option = 20 then option_20 ()
+  else if option = 21 then option_21 ()
+
+
+let admin_menu () = 
+  let quit_loop = ref false in 
+  while not !quit_loop do 
+  print_newline ();
+  print_string "COURSES OPERATIONS (1)";
+  print_newline ();
+  print_string "COURSE ASSIGNMENTS OPERATIONS (2)";
+  print_newline ();
+  print_string "PEOPLE OPERATIONS (3)";
+  print_newline ();
+  print_string "COURSE STAFF AND ENROLL/DROP OPERATIONS (4)";
+  print_newline ();
+  print_string "GRADING OPERATIONS (5)";
+  print_newline ();
+  print_newline ();
+  print_string "Choose an option: ";
+  let option = read_int () in
+  if option = 1 then admin_course_options ()
+  else if option = 2 then admin_assignment_options ()
+  else if option = 3 then admin_people_options ()
+  else if option = 4 then admin_e_d_options ()
+  else if option = 5 then admin_grade_options ()
+  else if option = 0 then quit_loop := true
+  done 
+
+let prof_menu () = 
+  let quit_loop = ref false in 
+  while not !quit_loop do 
+  print_newline ();
+  print_string "COURSES OPERATIONS (1)";
+  print_newline ();
+  print_string "COURSE ASSIGNMENTS OPERATIONS (2)";
+  print_newline ();
+  print_string "PEOPLE OPERATIONS (3)";
+  print_newline ();
+  print_string "COURSE STAFF AND ENROLL/DROP OPERATIONS (4)";
+  print_newline ();
+  print_string "GRADING OPERATIONS (5)";
+  print_newline ();
+  print_newline ();
+  print_string "Choose an option: ";
+  let option = read_int () in
+  if option = 1 then prof_course_options ()
+  else if option = 2 then prof_assignment_options ()
+  else if option = 3 then prof_people_options ()
+  else if option = 4 then prof_e_d_options ()
+  else if option = 5 then prof_grade_options ()
+  else if option = 0 then quit_loop := true
+  done 
+
+let student_menu () = 
+  print_newline ();
+  print_string "COURSES OPERATIONS (1)";
+  print_newline ();
+  print_string "PEOPLE OPERATIONS (2)";
+  print_newline ();
+  print_string "GRADING OPERATIONS (3)";
+  print_newline ();
+  print_newline ();
+  print_string "Choose an option: ";
+  let option = read_int () in
+  if option = 1 then student_course_options ()
+  else if option = 2 then student_people_options ()
+  else if option = 3 then student_grade_options ()
+
+
+let user_type () = 
+  print_string "Who are you?";
+  print_newline ();
+  print_string "Admin | Professor | Student";
+  print_newline ();
+  print_newline ();
+  print_string "Enter your role (case sensitive): ";
+  let response = read_line () in
+  if response = "Admin" then admin_menu ()
+  else if response = "Professor" then prof_menu ()
+  else if response = "Student" then student_menu ()
+  else print_string "Invalid role. Goodbye."
+
+
