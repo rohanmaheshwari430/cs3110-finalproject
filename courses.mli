@@ -13,6 +13,25 @@ type t
 (** [empty ()] is the empty t list *)
 val empty : t
 
+(** [len c] finds the amount of courses in  [c] by incremementing
+    the argument [acc] through recursive calls *)
+val len : t ref -> int 
+
+(** [get_title i c] returns the title of course with id [i] in courses [c]*)
+val get_title : int -> t ref -> string
+
+(** [assignments_len c] finds the amount of assignments in [c] using List
+    library *)
+val assignments_len : int -> t ref -> int
+
+(** [get_assignment_title i aid c] finds the title of assignment [aid] in 
+    course [i] in courses [c] *)
+val get_assignment_title: int -> int -> t ref -> string
+
+(** [get_assignment_id i aid c] finds the title of assignment [aid] in 
+    course [i] in courses [c] *)
+val get_assignment_id: int -> int -> t ref -> int
+
 (** [add_course i t c] modifies [c] by adding a new course with id [i],
     title [t], and empty students, professors, and assignments lists.
     The rest of the elements are unchanged. *)
@@ -67,7 +86,7 @@ val add_assignment_to_course :
 val remove_assignment_from_course : t ref -> int -> int -> unit
 
 (** [edit_assignment_in_course c aid f v cid] will edit field [f] with
-    new value [v] of assignment with id [aid] in course with id [cid]in
+    new value [v] of assignment with id [aid] in course with id [cid] in
     courses [c] *)
 val edit_assignment_in_course :
   t ref -> int -> string -> string -> int -> unit

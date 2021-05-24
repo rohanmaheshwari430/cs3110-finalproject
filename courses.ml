@@ -17,10 +17,30 @@ type course = {
 
 type t = course list
 
-(* Helper functions *)
+(*test suite helper functions*)
+let rec len c = List.length !c
 
-(** [find_courses] will find a course by id [i]. Returns an optional
-    course *)
+let get_title i c = 
+  let target_course = List.filter (fun x -> x.id = i) !c |> List.hd in
+  target_course.title
+
+let assignments_len i c = 
+  let target_course = List.filter (fun x -> x.id = i) !c |> List.hd in
+  List.length (target_course.assignments)
+
+let get_assignment_title i aid c = 
+  let target_course = List.filter (fun x -> x.id = i) !c |> List.hd in
+  let assignments = target_course.assignments in
+  let t_assignment = 
+    List.filter (fun (x:assignment) -> x.id = aid) assignments |> List.hd in
+    t_assignment.title
+
+let get_assignment_id i aid c = 
+  let target_course = List.filter (fun x -> x.id = i) !c |> List.hd in
+  let assignments = target_course.assignments in
+  let t_assignment = 
+    List.filter (fun (x:assignment) -> x.id = aid) assignments |> List.hd in
+    t_assignment.id
 let find_course i c =
   try Some (c |> List.filter (fun x -> x.id = i) |> List.hd)
   with Failure hd -> None
