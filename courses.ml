@@ -116,6 +116,16 @@ let add_course i t c =
   in
   c := new_course :: !c
 
+let student_len cid (c ) = 
+  let target_course = 
+    List.filter (fun x -> x.id = cid) !c 
+    |> List.hd in List.length target_course.students
+
+let professor_len cid (c ) = 
+  let target_course = 
+    List.filter (fun x -> x.id = cid) !c 
+    |> List.hd in List.length target_course.professors
+
 let delete_course i c = c := List.filter (fun x -> x.id <> i) !c
 
 let edit_course i f v c =

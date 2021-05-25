@@ -19,6 +19,10 @@ let courses_f = ref Courses.empty
 
 let courses_g = ref Courses.empty
 
+let course_h = ref Courses.empty
+
+let people_h = ref People.init
+
 let courses_a_add = Courses.add_course 1 "first" courses_a
 
 let courses_a_edit = Courses.edit_course 1 "title" "new first" courses_a
@@ -89,6 +93,11 @@ let people_a = ref People.init
 
 let people_a_add = People.add_student "ss2742" "Sukriti" 2023 people_a
 
+let people_ah_add_new =
+  People.add_student "ss2742" "Sukriti" 2023 people_h
+
+let people_ah_add_new_prof = People.add_prof "vc333" "vacilis" people_h
+
 let people_a_add_prof = People.add_prof "vc333" "vacillis" people_a
 
 let courses_tests =
@@ -123,11 +132,46 @@ let courses_tests =
       assert_equal 0
         (Courses.remove_assignment_from_course courses_c 3 1;
          Courses.assignments_len 1 courses_c) );
+
     ( "delete assignment 14" >:: fun _ ->
     assert_equal 0
       (Courses.remove_assignment_from_course courses_a 3 1;
         Courses.assignments_len 1 courses_c) );
-      
+    ( "adding student to course" >:: fun _ ->
+      assert_equal 1
+        (Courses.add_course 1 "first" course_h;
+         Courses.add_student_to_course course_h people_h "ss2742" 1;
+         Courses.student_len 1 course_h) );
+    ( "adding professor to course" >:: fun _ ->
+      assert_equal 1
+        (Courses.add_course 1 "first" course_h;
+         Courses.add_professor_to_course course_h people_h "vc333" 1;
+         Courses.professor_len 1 course_h) );
+    ( "remove professor to course" >:: fun _ ->
+      assert_equal 0
+        (Courses.add_course 1 "first" course_h;
+         Courses.remove_professor_from_course course_h people_h "vc333"
+           1;
+         Courses.professor_len 1 course_h) );
+    ( "remove student to course" >:: fun _ ->
+      assert_equal 0
+        (Courses.add_course 1 "first" course_h;
+         Courses.remove_student_from_course course_h people_h "ss2742" 1;
+         Courses.professor_len 1 course_h) );
+    ( "adding multiple students to a course" >:: fun _ ->
+      assert_equal 2
+        (People.add_student "snh44" "Samiksha" 2023 people_h;
+         Courses.add_course 1 "first" course_h;
+         Courses.add_student_to_course course_h people_h "ss2742" 1;
+         Courses.add_student_to_course course_h people_h "snh44" 1;
+         Courses.student_len 1 course_h) );
+    ( "adding multiple professor to a course" >:: fun _ ->
+      assert_equal 2
+        (People.add_prof "abc123" "David" people_h;
+         Courses.add_course 1 "first" course_h;
+         Courses.add_professor_to_course course_h people_h "vc333" 1;
+         Courses.add_professor_to_course course_h people_h "abc123" 1;
+         Courses.professor_len 1 course_h) );
   ]
 
 let grades_tests = [
@@ -176,10 +220,27 @@ let people_tests =
         (People.add_prof "rm697" "Rohan" people_a;
          People.edit_person "rm697" "Samiksha" people_a;
          People.get_professor_title "rm697" people_a) );
+    ( "get title of a professor" >:: fun _ ->
+      assert_equal "Walker White"
+        (People.add_prof "wwm123" "Walker White" people_a;
+         People.get_professor_title "wwm123" people_a) );
     ( "delete student" >:: fun _ ->
       assert_equal 0
         (People.del_person "ss2742" people_a;
          People.student_len people_a) );
+    ( "Adding more than one student" >:: fun _ ->
+      assert_equal 2
+        (People.add_student "snh44" "Samiksha" 2023 people_a;
+         People.add_student "abc12" "Ashley" 2023 people_a;
+         People.student_len people_a) );
+    ( "Adding more than one professor" >:: fun _ ->
+      assert_equal 2
+        (People.add_prof "abc123" "Samuel" people_a;
+         People.add_prof "def123" "Prof Batten" people_a;
+         People.student_len people_a) );
+    ( "get title of a professor when multiple professors have been added"
+    >:: fun _ ->
+      assert_equal "Prof Batten" (People.get_title "def123" people_a) );
   ]
 
 let suite =
