@@ -88,6 +88,26 @@ let get_student_mean = Courses.get_course_grade courses_e "aa123" 1
 
 let get_student_2_mean = Courses.get_course_grade courses_e "bb123" 1
 
+let edit_courses_d_1910 = Courses.edit_course 1910 "title" "new calc" courses_d
+
+let courses_d_1910_new_title = Courses.get_title 1910 courses_d
+
+let edit_courses_d_1090 = Courses.edit_course 1090 "title" "new music" courses_d
+
+let courses_d_1090_new_title = Courses.get_title 1090 courses_d
+
+let edit_courses_d_1111 = Courses.edit_course 1111 "title" "new engl" courses_d
+
+let courses_d_1111_new_title = Courses.get_title 1111 courses_d
+
+let edit_courses_d_3110 = Courses.edit_course 3110 "title" "new cs" courses_d
+
+let courses_d_3110_new_title = Courses.get_title 3110 courses_d
+
+
+
+
+
 
 let people_a = ref People.init
 
@@ -106,8 +126,14 @@ let courses_tests =
     ("add courses 2" >:: fun _ -> assert_equal 2 (Courses.len courses_b));
     ("add courses 3" >:: fun _ -> assert_equal 4 (Courses.len courses_d));
     ("edit course 4" >:: fun _ -> assert_equal "new first" courses_a_title);
-    ( "edit course 5" >:: fun _ ->
-      assert_equal "new new first" courses_a_title_2 );
+    ("edit course 5" >:: fun _ -> 
+      assert_equal "new calc" courses_d_1910_new_title);
+    ( "edit course 6" >:: fun _ ->
+      assert_equal "new music" courses_d_1090_new_title);
+    ( "edit course 7" >:: fun _ ->
+      assert_equal "new engl" courses_d_1111_new_title);
+    ( "edit course 8" >:: fun _ ->
+      assert_equal "new cs" courses_d_3110_new_title);
     ( "delete course 6" >:: fun _ ->
       assert_equal 0
         (Courses.delete_course 1 courses_a;
@@ -132,7 +158,6 @@ let courses_tests =
       assert_equal 0
         (Courses.remove_assignment_from_course courses_c 3 1;
          Courses.assignments_len 1 courses_c) );
-
     ( "delete assignment 14" >:: fun _ ->
     assert_equal 0
       (Courses.remove_assignment_from_course courses_a 3 1;
