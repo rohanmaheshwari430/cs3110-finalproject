@@ -15,6 +15,7 @@ type course = {
   mutable id : int;
 }
 
+(** The abstract type of values representing courses. *)
 type t = course list
 
 (*test suite helper functions*)

@@ -1,26 +1,17 @@
-(** Develop a person signature and implement it as a 'student' and a
-    'teacher' in two separate structs below. *)
+(** Representation of students and professors in the CMS database *)
 open Yojson.Basic.Util
 
 exception NotAStudent
 
 exception NotAProfessor
 
-type value =
-  [ `Assoc of (string * value) list
-  | `Bool of bool
-  | `Float of float
-  | `Int of int
-  | `List of value list
-  | `Null
-  | `String of string
-  ]
 
 type student_course = {
   name : string;
   id : int;
 }
 
+(* The representation of students with fields name, netid, grad year, enrolled courses*)
 type student = {
   mutable name : string;
   s_netid : string;
@@ -28,6 +19,7 @@ type student = {
   mutable courses : student_course list; (* (course title, course id) *)
 }
 
+(* The representation of students with fields name, netid, teaching courses*)
 type professor = {
   mutable name : string;
   p_netid : string;

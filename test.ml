@@ -1,7 +1,41 @@
 open OUnit2
 open Courses
 open People
+(**
 
+CMS PROGRAM TEST PLAN 
+
+The following tests are a comprehensive review of all
+functions used in this program that modify the database
+in some way. This includes adding, removing, editing entries.
+This also includes data manipulation, specifically student mean,
+class mean, and class median. 
+
+The functions in this system that contributed to the UI, or in
+other words, any printing functions that printed out values, were
+tested via observation to meet the expectations and vision of the 
+developers. Additionally, the load and save features were also tested
+via observation as the output was a JSON file. We simply made sure that
+the structure of the JSON file matched the database design. 
+
+The majority of these tests were developed via black box testing. 
+This is because most of the functions were one or two step operations
+in retrieving/modifying data in the database. For these functions, we
+only needed to test the output relative to the input given.contents
+
+For grade statistics and any other computational functions, we used
+glassbox testing. We tested to make sure the grade was being assigned,
+each student had the correct mean, and then made usre that the course
+had the correct overall mean. We did not do the same for median, 
+as students cannot have individual medians on assignments. 
+
+From the above testing workflow, it is clear that this test plan
+mimics the actions of a real user. The database operations are
+performed exactly how an admin would use them, so if cases pass
+in this test plan, then the user should experience the same success
+response.
+
+*)
 let course_roster =
   [ ("calc", 1910); ("engl", 1111); ("cs", 3110); ("music", 1090) ]
 
@@ -225,6 +259,14 @@ let courses_tests =
       Courses.add_student_to_course course_h people_h "ss2742" 2; 
       Courses.remove_student_from_course course_h people_h "ss2742" 2;
       Courses.student_len 2 course_h));
+
+    ("removing professor from a multiple course list" >:: fun _ -> 
+      assert_equal 0 
+      (Courses.add_course 1 "first" course_h; 
+      Courses.add_course 2 "second" course_h;
+      Courses.add_professor_to_course course_h people_h "vc333" 2; 
+      Courses.remove_professor_from_course course_h people_h "vc333" 2;
+      Courses.professor_len 2 course_h));
   ]
 
 let grades_tests = [

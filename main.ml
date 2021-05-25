@@ -1,40 +1,21 @@
-open Courses
-open People
-
 (** This file contains the control flow for a Command Line Interface. It
     will contain a main menu where a client can enter numerical values
     to choose an operation within the CMS database. The CLI will run
-    until the client chooses to exit the program. *)
+    until the client chooses to exit the program. 
+*)
+
+open Courses
+open People
 let cms_courses = ref Courses.empty
 
 let students_json = Yojson.Basic.from_file "students.json"
 
 let people_init = ref People.init
 
-(* type json_type = { students: People.student list; professors:
-   People.professor list; courses: Courses.t
-
-   }
-
-   type course_type = Courses.t
-
-   let cms_json = Yojson.Basic.from_file "cms.json"
-
-   let course_of_json j = { students = []; professors = []; assignments
-   = []; title = j |> member "title" |> to_string; id = j |> member "id"
-   |> to_int; }
-
-   let p_c_json j = { students = j |> member "people" |> to_list;
-   professors = j |> member "professors" |> to_list; courses = j |>
-   member "courses" |> to_list |> List.map course_of_json;
-
-   } *)
-
 let load_data = People.populate_students students_json people_init
 
-let save_data p =
-  People.create_json p;
-  print_string "hello"
+let save_data p = People.create_json p
+ 
 
 let option_1 () =
   print_string "Enter a Course title: ";
@@ -547,6 +528,8 @@ let admin_menu () =
     print_newline ();
     print_string "GRADING OPERATIONS (5)";
     print_newline ();
+    print_string "SAVE PEOPLE DATA (6)";
+    print_newline ();
     print_newline ();
     print_string "Choose an option: ";
     let option = read_int () in
@@ -555,7 +538,7 @@ let admin_menu () =
     else if option = 3 then admin_people_options ()
     else if option = 4 then admin_e_d_options ()
     else if option = 5 then admin_grade_options ()
-    else if option = 99 then save_data people_init
+    else if option = 6 then save_data people_init
     else if option = 0 then quit_loop := true
   done
 
@@ -600,7 +583,9 @@ let student_menu () =
   else if option = 3 then student_grade_options ()
 
 let user_type () =
+  print_newline ();
   print_string "Who are you?";
+  print_newline ();
   print_newline ();
   print_string "Admin | Professor | Student";
   print_newline ();
