@@ -206,17 +206,25 @@ let courses_tests =
          Courses.add_professor_to_course course_h people_h "abc123" 1;
          Courses.professor_len 1 course_h) );
     ("adding professor to a multiple course list" >:: fun _ -> 
-    assert_equal 1 
-    (Courses.add_course 1 "first" course_h; 
-    Courses.add_course 2 "second" course_h;
-    Courses.add_professor_to_course course_h people_h "vc333" 2; 
-    Courses.professor_len 2 course_h));
+      assert_equal 1 
+        (Courses.add_course 1 "first" course_h; 
+        Courses.add_course 2 "second" course_h;
+        Courses.add_professor_to_course course_h people_h "vc333" 2; 
+        Courses.professor_len 2 course_h));
     ("adding student to a multiple course list" >:: fun _ -> 
         assert_equal 1 
         (Courses.add_course 1 "first" course_h; 
         Courses.add_course 2 "second" course_h;
         Courses.add_student_to_course course_h people_h "ss2742" 2; 
         Courses.student_len 2 course_h));
+
+    ("removing student from a multiple course list" >:: fun _ -> 
+      assert_equal 0 
+      (Courses.add_course 1 "first" course_h; 
+      Courses.add_course 2 "second" course_h;
+      Courses.add_student_to_course course_h people_h "ss2742" 2; 
+      Courses.remove_student_from_course course_h people_h "ss2742" 2;
+      Courses.student_len 2 course_h));
   ]
 
 let grades_tests = [
@@ -298,6 +306,7 @@ let people_tests =
     ( "get title of a professor when multiple professors have been added"
     >:: fun _ ->
       assert_equal "Prof Batten" (People.get_title "def123" people_a) );
+    
   ]
 
 let suite =
