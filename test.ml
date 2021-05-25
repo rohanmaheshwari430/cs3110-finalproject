@@ -241,13 +241,16 @@ let grades_tests = [
   ("compute course grade 21" >:: fun _ -> 
     assert_equal 100.
     (Courses.get_course_grade courses_e "cc123" 1));
-  ("compute mean 22" >:: fun _ -> 
-    assert_equal 90. (Courses.get_mean courses_e 1 1));
+  ("compute course grade 22" >:: fun _ -> 
+    assert_equal 0.
+    (Courses.get_course_grade courses_e "cc123" 0));
   ("compute mean 23" >:: fun _ -> 
+    assert_equal 90. (Courses.get_mean courses_e 1 1));
+  ("compute mean 24" >:: fun _ -> 
     assert_equal 0. (Courses.get_mean courses_e 2 1));
-  ("compute median 24" >:: fun _ -> 
-    assert_equal 90. (Courses.get_median courses_e 1 1));
   ("compute median 25" >:: fun _ -> 
+    assert_equal 90. (Courses.get_median courses_e 1 1));
+  ("compute median 26" >:: fun _ -> 
     assert_equal 0. (Courses.get_median courses_e 2 1))
 ]
 
