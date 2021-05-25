@@ -1,15 +1,31 @@
 (** Develop a person signature and implement it as a 'student' and a
     'teacher' in two separate structs below. *)
+open Yojson.Basic.Util
 
 exception NotAStudent
 
 exception NotAProfessor
 
+type value =
+  [ `Assoc of (string * value) list
+  | `Bool of bool
+  | `Float of float
+  | `Int of int
+  | `List of value list
+  | `Null
+  | `String of string
+  ]
+
+type student_course = {
+  name : string;
+  id : int;
+}
+
 type student = {
   mutable name : string;
   s_netid : string;
   mutable grad_year : int;
-  mutable courses : (string * int) list; (* (course title, course id) *)
+  mutable courses : student_course list; (* (course title, course id) *)
 }
 
 type professor = {
@@ -29,6 +45,10 @@ type person =
 
 let init = { students = []; professors = [] }
 
+let student_len c = List.length !c.students
+
+let professor_len c = List.length !c.professors
+
 (** [pp_student] will pretty print the high-level fields of a student *)
 let pp_student (p : student) =
   print_string "|-------------------------------------------------|";
@@ -41,7 +61,6 @@ let pp_student (p : student) =
   print_int p.grad_year;
   print_newline ();
   print_string "|-------------------------------------------------|"
-
 
 (** [pp_professor] will pretty print the high-level fields of a
     professor *)
@@ -56,6 +75,92 @@ let pp_professor (p : professor) =
   print_newline ();
   print_newline ();
   print_string "|-------------------------------------------------|"
+
+let courses_of_person students_json =
+  {
+    name = students_json |> member "cname" |> to_string;
+    id = students_json |> member "course_id" |> to_int;
+  }
+
+let students students_json =
+  {
+    name = students_json |> member "name" |> to_string;
+    s_netid = students_json |> member "netid" |> to_string;
+    grad_year = students_json |> member "grad_year" |> to_int;
+    courses =
+      students_json |> member "courses" |> to_list
+      |> List.map courses_of_person;
+  }
+
+let student_list_of_json student_json =
+  {
+    students =
+      student_json |> member "students" |> to_list |> List.map students;
+    professors = [];
+  }
+
+let add_student_json student c =
+  let new_student = student in
+  c :=
+    {
+      students = new_student :: !c.students;
+      professors = !c.professors;
+    }
+
+let populate_students student_json (c : t ref) =
+  let student_list = student_list_of_json student_json in
+  let stud_list = student_list.students in
+  let rec populate_helper stud_list c =
+    match stud_list with
+    | [] -> print_string ""
+    | h :: tail ->
+        add_student_json h c;
+        populate_helper tail c
+  in
+  populate_helper stud_list c
+
+let rec students_list_builder (s : student list) acc =
+  match s with
+  | [] -> `List acc
+  | h :: t ->
+      students_list_builder t
+        (`Assoc
+           [
+             ("name", `String h.name);
+             ("netid", `String h.s_netid);
+             ("grad_year", `Int h.grad_year);
+           ]
+        :: acc)
+
+let rec professors_list_builder (p : professor list) acc =
+  match p with
+  | [] -> `List acc
+  | h :: t ->
+      professors_list_builder t
+        (`Assoc
+           [ ("name", `String h.name); ("netid", `String h.p_netid) ]
+        :: acc)
+
+let create_json c =
+  (* `Assoc [("students", `List [`Assoc [ ("name", `String "Anil");
+     ("grad_year", `Int 2024); ("netid", `String "a123"); ("courses",
+     `List [`Assoc [("name", `String "calc"); ("id", `Int 1910)]])]])] *)
+  let student_list = students_list_builder !c.students [] in
+  let professor_list = professors_list_builder !c.professors [] in
+  let value_students = student_list in
+  let value_professors = professor_list in
+  let string_json =
+    Yojson.to_string
+      (`Assoc
+        [
+          ("students", value_students); ("professors", value_professors);
+        ])
+  in
+  (* Write message to file *)
+  let oc = open_out "studentss_json.json" in
+  (* create or truncate file, return channel *)
+  Printf.fprintf oc "%s\n" string_json;
+  (* write something *) close_out oc
 
 let add_student id n gy c =
   let new_student =
@@ -147,23 +252,43 @@ let pp_people c =
   pp_professors !c.professors
 
 let find_student nid c =
-  let students = !c.students in 
+  let students = !c.students in
   let rec find_student_helper nid s =
-    match s with 
+    match s with
     | [] -> None
-    | h::t ->
-      if h.s_netid = nid then Some h
-      else find_student_helper nid t 
-    in
+    | h :: t ->
+        if h.s_netid = nid then Some h else find_student_helper nid t
+  in
   find_student_helper nid students
 
 let find_professor nid c =
-  let professors = !c.professors in 
+  let professors = !c.professors in
   let rec find_professor_helper nid p =
-    match p with 
+    match p with
     | [] -> None
-    | h::t ->
-      if h.p_netid = nid then Some h
-      else find_professor_helper nid t 
-    in
+    | h :: t ->
+        if h.p_netid = nid then Some h else find_professor_helper nid t
+  in
   find_professor_helper nid professors
+
+let get_student_title id c =
+  let students = !c.students in
+  let rec find_student id s =
+    match s with
+    | [] -> "No studnet found"
+    | h :: t -> if h.s_netid = id then h.name else find_student id t
+  in
+  find_student id students
+
+let get_professor_title id c =
+  let professors = !c.professors in
+  let rec find_prof id s =
+    match s with
+    | [] -> "No studnet found"
+    | h :: t -> if h.p_netid = id then h.name else find_prof id t
+  in
+  find_prof id professors
+
+let get_title id c =
+  try get_professor_title id c
+  with NotAProfessor -> get_student_title id c

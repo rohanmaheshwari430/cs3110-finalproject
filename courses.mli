@@ -13,24 +13,25 @@ type t
 (** [empty ()] is the empty t list *)
 val empty : t
 
-(** [len c] finds the amount of courses in  [c] by incremementing
-    the argument [acc] through recursive calls *)
-val len : t ref -> int 
+(** [len c] finds the amount of courses in [c] by incremementing the
+    argument [acc] through recursive calls *)
+val len : t ref -> int
 
-(** [get_title i c] returns the title of course with id [i] in courses [c]*)
+(** [get_title i c] returns the title of course with id [i] in courses
+    [c]*)
 val get_title : int -> t ref -> string
 
-(** [assignments_len c] finds the amount of assignments in [c] using List
-    library *)
+(** [assignments_len c] finds the amount of assignments in [c] using
+    List library *)
 val assignments_len : int -> t ref -> int
 
-(** [get_assignment_title i aid c] finds the title of assignment [aid] in 
-    course [i] in courses [c] *)
-val get_assignment_title: int -> int -> t ref -> string
+(** [get_assignment_title i aid c] finds the title of assignment [aid]
+    in course [i] in courses [c] *)
+val get_assignment_title : int -> int -> t ref -> string
 
-(** [get_assignment_id i aid c] finds the title of assignment [aid] in 
+(** [get_assignment_id i aid c] finds the title of assignment [aid] in
     course [i] in courses [c] *)
-val get_assignment_id: int -> int -> t ref -> int
+val get_assignment_id : int -> int -> t ref -> int
 
 (** [add_course i t c] modifies [c] by adding a new course with id [i],
     title [t], and empty students, professors, and assignments lists.

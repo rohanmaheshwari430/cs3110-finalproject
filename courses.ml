@@ -8,7 +8,7 @@ type assignment = {
 }
 
 type course = {
-  mutable students : student list;  
+  mutable students : student list;
   mutable professors : professor list;
   mutable assignments : assignment list;
   mutable title : string;
@@ -20,27 +20,32 @@ type t = course list
 (*test suite helper functions*)
 let rec len c = List.length !c
 
-let get_title i c = 
+let get_title i c =
   let target_course = List.filter (fun x -> x.id = i) !c |> List.hd in
   target_course.title
 
-let assignments_len i c = 
+let assignments_len i c =
   let target_course = List.filter (fun x -> x.id = i) !c |> List.hd in
-  List.length (target_course.assignments)
+  List.length target_course.assignments
 
-let get_assignment_title i aid c = 
+let get_assignment_title i aid c =
   let target_course = List.filter (fun x -> x.id = i) !c |> List.hd in
   let assignments = target_course.assignments in
-  let t_assignment = 
-    List.filter (fun (x:assignment) -> x.id = aid) assignments |> List.hd in
-    t_assignment.title
+  let t_assignment =
+    List.filter (fun (x : assignment) -> x.id = aid) assignments
+    |> List.hd
+  in
+  t_assignment.title
 
-let get_assignment_id i aid c = 
+let get_assignment_id i aid c =
   let target_course = List.filter (fun x -> x.id = i) !c |> List.hd in
   let assignments = target_course.assignments in
-  let t_assignment = 
-    List.filter (fun (x:assignment) -> x.id = aid) assignments |> List.hd in
-    t_assignment.id
+  let t_assignment =
+    List.filter (fun (x : assignment) -> x.id = aid) assignments
+    |> List.hd
+  in
+  t_assignment.id
+
 let find_course i c =
   try Some (c |> List.filter (fun x -> x.id = i) |> List.hd)
   with Failure hd -> None
@@ -58,7 +63,6 @@ let pp_a (a : assignment) =
   print_newline ();
   print_string "|-------------------------------------------------|"
 
-
 let pp_c c =
   print_string "|-------------------------------------------------|";
   print_newline ();
@@ -73,14 +77,13 @@ let pp_c c =
   print_string " Students: ";
   print_newline ();
   List.iter People.pp_student c.students;
-  print_string " Assignments: "; 
+  print_string " Assignments: ";
   print_newline ();
   List.iter pp_a c.assignments;
   print_newline ();
   print_newline ();
   print_string "|-------------------------------------------------|";
   print_newline ()
-
 
 let add_course i t c =
   let new_course =
@@ -457,4 +460,3 @@ let print_mean_median (c : course list ref) course_id assign_id =
           print_newline ();
           print_string "Median of assignment: ";
           print_string (string_of_float (median c h.id a.id)))
-

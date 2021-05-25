@@ -42,14 +42,34 @@ val pp_professor : professor -> unit
 
 val pp_student : student -> unit
 
+val create_json : t ref -> unit
+
 (** [pp_people c ] will print the information of all the people
     currently enrolled in CMS *)
 val pp_people : t ref -> unit
 
-(** [find_student nid s] will find student with netid [nid] in people [s].
-    returns Some student if found, None otherwise *)
+(** [find_student nid s] will find student with netid [nid] in people
+    [s]. returns Some student if found, None otherwise *)
 val find_student : string -> t ref -> student option
 
-(** [find_professor nid p] will find professor with netid [nid] in people [p].
-    returns Some professor if found, None otherwise *)
+(** [find_professor nid p] will find professor with netid [nid] in
+    people [p]. returns Some professor if found, None otherwise *)
 val find_professor : string -> t ref -> professor option
+
+val populate_students : Yojson.Basic.t -> t ref -> unit
+
+val add_student_json : student -> t ref -> unit
+
+val student_list_of_json : Yojson.Basic.t -> t
+
+val students : Yojson.Basic.t -> student
+
+val student_len : t ref -> int
+
+val professor_len : t ref -> int
+
+val get_student_title : string -> t ref -> string
+
+val get_professor_title : string -> t ref -> string
+
+val get_title : string -> t ref -> string
