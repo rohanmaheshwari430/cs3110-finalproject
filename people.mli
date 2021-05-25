@@ -56,20 +56,48 @@ val find_student : string -> t ref -> student option
     people [p]. returns Some professor if found, None otherwise *)
 val find_professor : string -> t ref -> professor option
 
+(** [populate_students json p] will find popualate p with the fields in
+    json *)
 val populate_students : Yojson.Basic.t -> t ref -> unit
 
+(** [add_student_json student p] will add student [student] to p *)
 val add_student_json : student -> t ref -> unit
 
+(** [student_list_of_json t] will create a list of students from [t]
+    stored inside a people record *)
 val student_list_of_json : Yojson.Basic.t -> t
 
+(** [find_professor nid p] will find professor with netid [nid] in
+    people [p]. returns Some professor if found, None otherwise *)
+val find_professor : string -> t ref -> professor option
+
+(** [populate_students json p] finds popualate [p] with the fields in
+    [json] *)
+val populate_students : Yojson.Basic.t -> t ref -> unit
+
+(** [add_student_json student p] adds student [student] to p *)
+val add_student_json : student -> t ref -> unit
+
+(** [student_list_of_json t] creates a list of students from [t] stored
+    inside a people record *)
+val student_list_of_json : Yojson.Basic.t -> t
+
+(** [students json] returns a student given the fields in [json] *)
 val students : Yojson.Basic.t -> student
 
+(** [student_len p] returns a the number of students in [p] *)
 val student_len : t ref -> int
 
+(** [professor_len p] returns a the number of professors in [p] *)
 val professor_len : t ref -> int
 
+(** [get_student_title netid] returns the name of a student with netid
+    [netid] *)
 val get_student_title : string -> t ref -> string
 
+(** [get_professor_title netid] returns the name of a professor with
+    netid [netid] *)
 val get_professor_title : string -> t ref -> string
 
+(** [get_title netid] returns the name of a person with netid [netid] *)
 val get_title : string -> t ref -> string
