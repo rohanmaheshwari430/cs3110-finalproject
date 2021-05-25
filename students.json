@@ -1,0 +1,15 @@
+{
+  "students": [
+    {
+      "name": "samiksha",
+      "netid": "snh44",
+      "grad_year": 2023,
+      "courses": [
+        {
+          "cname": "CS",
+          "course_id": 1910
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "students": [
+    {
+      "name": "samiksha",
+      "netid": "snh44",
+      "grad_year": 2023
+    }
+  ],
+  "professors": [
+    {
+      "name": "rohan",
+      "netid": "rm697"
+    }
+  ]
+}
