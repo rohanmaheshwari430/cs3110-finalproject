@@ -74,9 +74,13 @@ let create_student = People.add_student "aa123" "Rohan" 2024 student_for_e1
 
 let create_second_student = People.add_student "bb123" "Sam" 2023 student_for_e1
 
+let create_third_student = People.add_student "cc123" "Bill" 2023 student_for_e1
+
 let add_student_to_e1 = Courses.add_student_to_course courses_e student_for_e1 "aa123" 1
 
 let add_student_2_to_e1 = Courses.add_student_to_course courses_e student_for_e1 "bb123" 1
+
+let add_student_3_to_e1 = Courses.add_student_to_course courses_e student_for_e1 "cc123" 1
 
 let add_assignment_e1 = Courses.add_assignment_to_course courses_e 1 "hw1" 1 1
 
@@ -84,9 +88,13 @@ let assign_grade_in_e1 = Courses.assign_grade courses_e 1 1 "aa123" 90
 
 let assign_grade_2_in_e1 = Courses.assign_grade courses_e 1 1 "bb123" 80
 
+let assign_grade_3_in_e1 = Courses.assign_grade courses_e 1 1 "cc123" 100
+
 let get_student_mean = Courses.get_course_grade courses_e "aa123" 1
 
 let get_student_2_mean = Courses.get_course_grade courses_e "bb123" 1
+
+let get_student_3_mean = Courses.get_course_grade courses_e "cc123" 1
 
 let edit_courses_d_1910 = Courses.edit_course 1910 "title" "new calc" courses_d
 
@@ -204,22 +212,33 @@ let grades_tests = [
     assert_equal 90 
     (Courses.get_student_grade_in_assignment 1 1 "aa123" courses_e));
   ("grade student assignment 16" >:: fun _ -> 
+    assert_equal 80 
+    (Courses.get_student_grade_in_assignment 1 1 "bb123" courses_e));
+  ("grade student assignment 17" >:: fun _ -> 
+    assert_equal 100 
+    (Courses.get_student_grade_in_assignment 1 1 "cc123" courses_e));
+  ("grade student assignment 18" >:: fun _ -> 
     assert_equal 0
     (Courses.get_student_grade_in_assignment 1 1 "aa124" courses_e));
-  ("compute course grade 17" >:: fun _ -> 
+  ("compute course grade 19" >:: fun _ -> 
     assert_equal 90.
     (Courses.get_course_grade courses_e "aa123" 1));
-  ("compute course grade 18" >:: fun _ -> 
+  ("compute course grade 20" >:: fun _ -> 
     assert_equal 80.
     (Courses.get_course_grade courses_e "bb123" 1));
-  ("compute mean 19" >:: fun _ -> 
-    assert_equal 85. (Courses.get_mean courses_e 1 1));
-  ("compute mean 20" >:: fun _ -> 
+  ("compute course grade 21" >:: fun _ -> 
+    assert_equal 100.
+    (Courses.get_course_grade courses_e "cc123" 1));
+  ("compute mean 22" >:: fun _ -> 
+    assert_equal 90. (Courses.get_mean courses_e 1 1));
+  ("compute mean 23" >:: fun _ -> 
     assert_equal 0. (Courses.get_mean courses_e 2 1));
-  ("compute median 21" >:: fun _ -> 
-    assert_equal 85. (Courses.get_median courses_e 1 1));
-  ("compute median 22" >:: fun _ -> 
+  ("compute median 24" >:: fun _ -> 
+    assert_equal 90. (Courses.get_median courses_e 1 1));
+  ("compute median 25" >:: fun _ -> 
     assert_equal 0. (Courses.get_median courses_e 2 1))
+
+  
 ]
 
 let people_tests =
