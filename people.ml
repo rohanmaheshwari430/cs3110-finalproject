@@ -149,7 +149,7 @@ let create_json c =
         ])
   in
   (* Write message to file *)
-  let oc = open_out "studentss_json.json" in
+  let oc = open_out "students.json" in
   (* create or truncate file, return channel *)
   Printf.fprintf oc "%s\n" string_json;
   (* write something *) close_out oc
