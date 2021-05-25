@@ -20,6 +20,10 @@ type t = course list
 (*test suite helper functions*)
 let rec len c = List.length !c
 
+let find_course i c =
+  try Some (c |> List.filter (fun x -> x.id = i) |> List.hd)
+  with Failure hd -> None
+
 let get_title i c =
   let target_course = List.filter (fun x -> x.id = i) !c |> List.hd in
   target_course.title
@@ -46,9 +50,24 @@ let get_assignment_id i aid c =
   in
   t_assignment.id
 
-let find_course i c =
-  try Some (c |> List.filter (fun x -> x.id = i) |> List.hd)
-  with Failure hd -> None
+let get_student_grade_in_assignment i aid nid c =
+  let target_course = List.filter (fun x -> x.id = i) !c |> List.hd in
+  let assignments = target_course.assignments in
+  let t_assignment =
+    List.filter (fun (x : assignment) -> x.id = aid) assignments
+    |> List.hd
+  in
+  let s_grades = t_assignment.student_grades in
+  let rec find_our_grade sg = 
+    match sg with 
+    | [] -> 0
+    | (n, g) :: t -> 
+      if nid = n then  g 
+      else if  nid <> n then find_our_grade t
+      else find_our_grade t
+  in 
+  find_our_grade s_grades
+
 
 let pp_a (a : assignment) =
   print_string "|-------------------------------------------------|";
@@ -358,6 +377,13 @@ let rec compute_grade netid a =
   let w_sum = weight_total 0.0 s_grades in
   s_sum /. w_sum *. 100.0
 
+let get_course_grade c netid cid =
+  let course = find_course cid !c in
+  match course with
+  | None -> 0.
+  | Some h -> (compute_grade netid h.assignments)
+  
+
 let final_course_grade c netid cid =
   let course = find_course cid !c in
   match course with
@@ -443,6 +469,31 @@ let rec median c course_id assign_id =
       | None -> failwith "Assignment not found."
       | Some a -> median_helper a)
 
+
+let mean s cs c (a: assignment) = s cs c.id a.id
+/. float_of_int (size_helper a.student_grades)
+
+let get_mean (c : course list ref) course_id assign_id =
+  let course = find_course course_id !c in
+  match course with
+  | None -> 0.
+  | Some h -> (
+      let assignment = find_assignment assign_id h.assignments in
+      match assignment with
+      | None -> 0.
+      | Some a -> mean sum c h a )
+
+let get_median (c : course list ref) course_id assign_id =
+  let course = find_course course_id !c in
+  match course with
+  | None -> 0.
+  | Some h -> (
+      let assignment = find_assignment assign_id h.assignments in
+      match assignment with
+      | None -> 0.
+      | Some a -> median c h.id a.id)
+
+
 let print_mean_median (c : course list ref) course_id assign_id =
   let course = find_course course_id !c in
   match course with
@@ -452,11 +503,8 @@ let print_mean_median (c : course list ref) course_id assign_id =
       match assignment with
       | None -> print_string "Assignment not found."
       | Some a ->
-          print_string "Mean for the assignment: ";
-          print_string
-            (string_of_float
-               (sum c h.id a.id
-               /. float_of_int (size_helper a.student_grades)));
+          (print_string "Mean for the assignment: ";
+          print_string (string_of_float (mean sum c h a)));
           print_newline ();
           print_string "Median of assignment: ";
           print_string (string_of_float (median c h.id a.id)))

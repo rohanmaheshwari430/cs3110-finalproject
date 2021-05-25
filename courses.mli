@@ -33,6 +33,23 @@ val get_assignment_title : int -> int -> t ref -> string
     course [i] in courses [c] *)
 val get_assignment_id : int -> int -> t ref -> int
 
+(** [get_assignment_id i aid nid c] finds the grade of student [nid] in 
+    assignment [aid] in course [i] in courses [c] *)
+val get_student_grade_in_assignment : int -> int -> string -> t ref -> int 
+
+
+(** [get_course_grade c nid cid] returns the grade value of student [nid] in 
+    course [cid] in courses [c] *)
+val get_course_grade : t ref -> string -> int -> float
+
+(** [get_mean c cid aid] returns the mean grade value of assignment [aid] in 
+    course [cid] in courses [c] *)
+val get_mean : t ref -> int -> int -> float
+
+(** [get_median c cid aid] returns the median grade value of assignment [aid] in 
+    course [cid] in courses [c] *)
+val get_median : t ref -> int -> int -> float
+
 (** [add_course i t c] modifies [c] by adding a new course with id [i],
     title [t], and empty students, professors, and assignments lists.
     The rest of the elements are unchanged. *)
